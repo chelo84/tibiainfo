@@ -22,7 +22,7 @@ public class Creature {
 
     String article;
 
-    String hitpoints;
+    Integer hitpoints;
 
     Integer experience;
 
@@ -72,7 +72,8 @@ public class Creature {
 
     Integer modifierDrown;
 
-    Integer modiferHpDrain;
+    @Column(name = "modifier_hpdrain")
+    Integer modifierHpDrain;
 
     String abilities;
 
