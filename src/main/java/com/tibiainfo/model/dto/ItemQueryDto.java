@@ -10,7 +10,10 @@ import java.util.Optional;
 @Setter
 public class ItemQueryDto extends QueryDto {
 
-    @ApiParam(example = "Armors")
+    @ApiParam(example = "Sword Weapons")
     Optional<String> type = Optional.empty();
+
+    @ApiParam(example = "Fire Sword")
+    Optional<String> title = Optional.empty();
 
 }
