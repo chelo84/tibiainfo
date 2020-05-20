@@ -2,6 +2,7 @@ package com.tibiainfo.model;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -10,7 +11,8 @@ import javax.persistence.Id;
 public class Item {
 
     @Id
-    Long articleId;
+    @Column(name = "article_id")
+    Long id;
 
     String title;
 

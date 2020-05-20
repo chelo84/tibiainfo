@@ -1,14 +1,20 @@
 package com.tibiainfo.model.dto;
 
 import io.swagger.annotations.ApiParam;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-@Getter
 @Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@SuperBuilder
 public class QueryDto {
 
     @ApiParam(example = "0", allowableValues = "range[0, infinity]", required = true)
