@@ -10,8 +10,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import static org.apache.logging.log4j.util.Strings.isNotBlank;
-
 @Builder
 @Getter
 @Setter
@@ -25,10 +23,10 @@ public class ItemSpecification implements Specification<Item> {
     public Predicate toPredicate(Root<Item> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
         Predicate predicate = builder.and();
 
-        if (isNotBlank(itemQueryDto.getType())) {
+        if (itemQueryDto.getType().isPresent()) {
             Predicate typeEquals = builder.equal(
                     builder.upper(root.get("type")),
-                    itemQueryDto.getType().toUpperCase()
+                    itemQueryDto.getType().get().toUpperCase()
             );
             predicate = builder.and(predicate, typeEquals);
         }
