@@ -24,13 +24,31 @@ public class ItemSpecification implements Specification<Item> {
         Predicate predicate = builder.and();
 
         if (itemQueryDto.getType().isPresent()) {
-            Predicate typeEquals = builder.equal(
-                    builder.upper(root.get("type")),
-                    itemQueryDto.getType().get().toUpperCase()
-            );
-            predicate = builder.and(predicate, typeEquals);
+            predicate = getTypePredicate(root, builder, predicate);
+        }
+        if(itemQueryDto.getTitle().isPresent()){
+            predicate = getTitlePredicate(root, builder, predicate);
         }
 
         return predicate;
+    }
+
+    private Predicate getTypePredicate(Root<Item> root, CriteriaBuilder builder, Predicate predicate) {
+        Predicate typeEquals = builder.equal(
+                builder.upper(root.get("type")),
+                itemQueryDto.getType().get().toUpperCase()
+        );
+        predicate = builder.and(predicate, typeEquals);
+        return predicate;
+    };
+
+    private Predicate getTitlePredicate(Root<Item> root, CriteriaBuilder builder, Predicate predicate){
+        Predicate titleEquals = builder.equal(
+                builder.upper(root.get("title")),
+                itemQueryDto.getTitle().get().toUpperCase()
+        );
+        predicate = builder.and(predicate, titleEquals);
+        return predicate;
+
     }
 }
