@@ -11,6 +11,6 @@ import java.util.Optional;
 public class ItemQueryDto extends QueryDto {
 
     @ApiParam(example = "Armors")
-    Optional<String> type;
+    Optional<String> type = Optional.empty();
 
 }
