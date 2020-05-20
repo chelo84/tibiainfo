@@ -72,7 +72,7 @@ public class ItemServiceTest {
 
     @Test
     public void testGetItemById() throws NotFoundException {
-        Item fetchedItem = itemService.getItem(EXISTING_ITEM);
+        Item fetchedItem = itemService.getItemById(EXISTING_ITEM);
 
         assertNotNull(fetchedItem);
         assertEquals(EXISTING_ITEM, fetchedItem.getId());
@@ -80,7 +80,7 @@ public class ItemServiceTest {
 
     @Test(expected = NotFoundException.class)
     public void testGetItemThatDoesNotExist() throws NotFoundException {
-        itemService.getItem(NON_EXISTING_ITEM);
+        itemService.getItemById(NON_EXISTING_ITEM);
     }
 
 }

@@ -18,6 +18,6 @@ public class ItemQueryDto extends QueryDto {
 
     @Builder.Default
     @ApiParam(example = "Fire Sword")
-    Optional<String> title = Optional.empty();
+    Optional<String> name = Optional.empty();
 
 }

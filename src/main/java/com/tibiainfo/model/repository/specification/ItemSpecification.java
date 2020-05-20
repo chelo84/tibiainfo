@@ -26,8 +26,8 @@ public class ItemSpecification implements Specification<Item> {
         if (itemQueryDto.getType().isPresent()) {
             predicate = getTypePredicate(root, builder, predicate);
         }
-        if(itemQueryDto.getTitle().isPresent()){
-            predicate = getTitlePredicate(root, builder, predicate);
+        if (itemQueryDto.getName().isPresent()) {
+            predicate = getNamePredicate(root, builder, predicate);
         }
 
         return predicate;
@@ -40,12 +40,14 @@ public class ItemSpecification implements Specification<Item> {
         );
         predicate = builder.and(predicate, typeEquals);
         return predicate;
-    };
+    }
 
-    private Predicate getTitlePredicate(Root<Item> root, CriteriaBuilder builder, Predicate predicate){
+    ;
+
+    private Predicate getNamePredicate(Root<Item> root, CriteriaBuilder builder, Predicate predicate) {
         Predicate titleEquals = builder.equal(
-                builder.upper(root.get("title")),
-                itemQueryDto.getTitle().get().toUpperCase()
+                builder.upper(root.get("name")),
+                itemQueryDto.getName().get().toUpperCase()
         );
         predicate = builder.and(predicate, titleEquals);
         return predicate;
