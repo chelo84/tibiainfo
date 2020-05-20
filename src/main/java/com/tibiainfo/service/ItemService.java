@@ -16,7 +16,7 @@ public class ItemService {
     @Autowired
     ItemRepository itemRepository;
 
-    public Item getItem(Long id) throws NotFoundException {
+    public Item getItemById(Long id) throws NotFoundException {
         return itemRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Item not found"));
     }

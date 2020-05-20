@@ -29,8 +29,8 @@ public class ItemController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Returns a specific item")
-    public Item getItem(@PathVariable Long id) throws NotFoundException {
-        return itemService.getItem(id);
+    public Item getItemById(@PathVariable Long id) throws NotFoundException {
+        return itemService.getItemById(id);
     }
 
 }
