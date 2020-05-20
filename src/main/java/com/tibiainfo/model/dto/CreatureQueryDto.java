@@ -8,12 +8,8 @@ import java.util.Optional;
 
 @Getter
 @Setter
-public class ItemQueryDto extends QueryDto {
+public class CreatureQueryDto extends QueryDto {
 
-    @ApiParam(example = "Sword Weapons")
-    Optional<String> type = Optional.empty();
-
-    @ApiParam(example = "Fire Sword")
+    @ApiParam(example = "Monk")
     Optional<String> name = Optional.empty();
-
 }
