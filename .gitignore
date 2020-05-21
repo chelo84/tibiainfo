@@ -235,3 +235,7 @@ nb-configuration.xml
 nbactions.xml
 
 */src/main/resources/application-local.properties
+
+/src/main/resources/tibiainfo.db
+/src/test/resources/tibiainfo.db
+
