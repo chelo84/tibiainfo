@@ -2,8 +2,8 @@ package com.tibiainfo.service;
 
 import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.Creature;
-import com.tibiainfo.model.dto.CreatureQueryDto;
-import com.tibiainfo.model.dto.PageSupportDto;
+import com.tibiainfo.model.dto.CreatureQueryDTO;
+import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.repository.CreatureRepository;
 import com.tibiainfo.model.repository.specification.CreatureSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +21,14 @@ public class CreatureService {
                 .orElseThrow(() -> new NotFoundException("Creature not found"));
     }
 
-    public PageSupportDto<Creature> getCreatures(CreatureQueryDto queryDto) {
+    public PageSupportDTO<Creature> getCreatures(CreatureQueryDTO queryDto) {
         PageRequest of = PageRequest.of(queryDto.getPage(), queryDto.getSize());
 
         CreatureSpecification specification = CreatureSpecification.builder()
                 .creatureQueryDto(queryDto)
                 .build();
 
-        return new PageSupportDto<>(creatureRepository.findAll(specification, of));
+        return new PageSupportDTO<>(creatureRepository.findAll(specification, of));
     }
 
 

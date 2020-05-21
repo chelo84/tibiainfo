@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageSupportDto<T> {
+public class PageSupportDTO<T> {
 
     List<T> content;
 
@@ -28,7 +28,7 @@ public class PageSupportDto<T> {
 
     boolean last;
 
-    public PageSupportDto(Page<T> page) {
+    public PageSupportDTO(Page<T> page) {
         this.content = page.getContent();
         this.totalElements = page.getTotalElements();
         this.totalPages = page.getTotalPages();

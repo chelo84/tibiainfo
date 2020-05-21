@@ -1,7 +1,7 @@
 package com.tibiainfo.model.repository.specification;
 
 import com.tibiainfo.model.Creature;
-import com.tibiainfo.model.dto.CreatureQueryDto;
+import com.tibiainfo.model.dto.CreatureQueryDTO;
 import lombok.*;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -17,7 +17,7 @@ import javax.persistence.criteria.Root;
 @NoArgsConstructor
 public class CreatureSpecification implements Specification<Creature> {
 
-    CreatureQueryDto creatureQueryDto;
+    CreatureQueryDTO creatureQueryDto;
 
     @Override
     public Predicate toPredicate(Root<Creature> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder builder) {

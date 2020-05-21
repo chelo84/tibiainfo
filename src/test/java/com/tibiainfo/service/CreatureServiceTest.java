@@ -2,8 +2,8 @@ package com.tibiainfo.service;
 
 import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.Creature;
-import com.tibiainfo.model.dto.CreatureQueryDto;
-import com.tibiainfo.model.dto.PageSupportDto;
+import com.tibiainfo.model.dto.CreatureQueryDTO;
+import com.tibiainfo.model.dto.PageSupportDTO;
 import org.junit.Test;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -32,13 +32,13 @@ public class CreatureServiceTest {
 
     @Test
     public void testGetCreature() {
-        CreatureQueryDto creatureQueryDto = CreatureQueryDto.builder()
+        CreatureQueryDTO creatureQueryDto = CreatureQueryDTO.builder()
                 .name(Optional.empty())
                 .page(0)
                 .size(10)
                 .build();
 
-        PageSupportDto<Creature> creatures = creatureService.getCreatures(creatureQueryDto);
+        PageSupportDTO<Creature> creatures = creatureService.getCreatures(creatureQueryDto);
 
         assertNotNull(creatures);
         assertNotNull(creatures.getContent());
@@ -53,13 +53,13 @@ public class CreatureServiceTest {
 
     @Test
     public void testGetCreatureByName() {
-        CreatureQueryDto creatureQueryDto = CreatureQueryDto.builder()
+        CreatureQueryDTO creatureQueryDto = CreatureQueryDTO.builder()
                 .name(Optional.of(CREATURE_NAME))
                 .page(0)
                 .size(10)
                 .build();
 
-        PageSupportDto<Creature> creatures = creatureService.getCreatures(creatureQueryDto);
+        PageSupportDTO<Creature> creatures = creatureService.getCreatures(creatureQueryDto);
 
         assertNotNull(creatures);
         assertNotNull(creatures.getContent());

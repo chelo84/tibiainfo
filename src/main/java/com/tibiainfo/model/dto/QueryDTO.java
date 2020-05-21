@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class QueryDto {
+public class QueryDTO {
 
     @ApiParam(example = "0", allowableValues = "range[0, infinity]", required = true)
     @Min(0) @NotNull

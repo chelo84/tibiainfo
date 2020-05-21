@@ -2,8 +2,8 @@ package com.tibiainfo.service;
 
 import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.Item;
-import com.tibiainfo.model.dto.ItemQueryDto;
-import com.tibiainfo.model.dto.PageSupportDto;
+import com.tibiainfo.model.dto.ItemQueryDTO;
+import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.repository.ItemRepository;
 import com.tibiainfo.model.repository.specification.ItemSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +21,13 @@ public class ItemService {
                 .orElseThrow(() -> new NotFoundException("Item not found"));
     }
 
-    public PageSupportDto<Item> getItems(ItemQueryDto queryDto) {
+    public PageSupportDTO<Item> getItems(ItemQueryDTO queryDto) {
         PageRequest of = PageRequest.of(queryDto.getPage(), queryDto.getSize());
 
         ItemSpecification specification = ItemSpecification.builder()
                 .itemQueryDto(queryDto)
                 .build();
 
-        return new PageSupportDto<>(itemRepository.findAll(specification, of));
+        return new PageSupportDTO<>(itemRepository.findAll(specification, of));
     }
 }
