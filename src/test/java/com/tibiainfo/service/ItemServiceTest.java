@@ -63,6 +63,7 @@ public class ItemServiceTest {
 
         assertNotNull(items);
         assertNotNull(items.getContent());
+        assertFalse(items.isEmpty());
         assertTrue(
                 items.getContent()
                         .stream()

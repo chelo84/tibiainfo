@@ -16,12 +16,12 @@ public class CreatureService {
     @Autowired
     CreatureRepository creatureRepository;
 
-    public Creature getCreature(Long id) throws NotFoundException {
+    public Creature getCreatureById(Long id) throws NotFoundException {
         return creatureRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Creature not found"));
     }
 
-    public PageSupportDto<Creature> getCreature(CreatureQueryDto queryDto) {
+    public PageSupportDto<Creature> getCreatures(CreatureQueryDto queryDto) {
         PageRequest of = PageRequest.of(queryDto.getPage(), queryDto.getSize());
 
         CreatureSpecification specification = CreatureSpecification.builder()
