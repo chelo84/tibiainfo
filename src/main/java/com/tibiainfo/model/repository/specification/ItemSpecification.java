@@ -1,7 +1,7 @@
 package com.tibiainfo.model.repository.specification;
 
 import com.tibiainfo.model.Item;
-import com.tibiainfo.model.dto.ItemQueryDto;
+import com.tibiainfo.model.dto.ItemQueryDTO;
 import lombok.*;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -17,7 +17,7 @@ import javax.persistence.criteria.Root;
 @NoArgsConstructor
 public class ItemSpecification implements Specification<Item> {
 
-    ItemQueryDto itemQueryDto;
+    ItemQueryDTO itemQueryDto;
 
     @Override
     public Predicate toPredicate(Root<Item> root, CriteriaQuery<?> query, CriteriaBuilder builder) {

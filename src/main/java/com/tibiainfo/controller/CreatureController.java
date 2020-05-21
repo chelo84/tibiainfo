@@ -2,8 +2,8 @@ package com.tibiainfo.controller;
 
 import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.Creature;
-import com.tibiainfo.model.dto.CreatureQueryDto;
-import com.tibiainfo.model.dto.PageSupportDto;
+import com.tibiainfo.model.dto.CreatureQueryDTO;
+import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.service.CreatureService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class CreatureController {
 
     @GetMapping
     @ApiOperation(value = "Returns a page of creatures")
-    public PageSupportDto<Creature> getCreature(@Valid CreatureQueryDto queryDto) {
+    public PageSupportDTO<Creature> getCreature(@Valid CreatureQueryDTO queryDto) {
         return creatureService.getCreature(queryDto);
     }
 

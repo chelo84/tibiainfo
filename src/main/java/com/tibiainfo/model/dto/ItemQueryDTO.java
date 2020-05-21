@@ -11,7 +11,7 @@ import java.util.Optional;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemQueryDto extends QueryDto {
+public class ItemQueryDTO extends QueryDTO {
 
     @ApiParam(example = "Sword Weapons")
     Optional<String> type = Optional.empty();
