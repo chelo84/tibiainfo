@@ -38,4 +38,9 @@ public class ItemService {
         );
 
     }
+
+    public byte[] getImage(Long id) throws NotFoundException {
+        return itemRepository.getImageById(id)
+                .orElseThrow(() -> new NotFoundException("Item not found"));
+    }
 }
