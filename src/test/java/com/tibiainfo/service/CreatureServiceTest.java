@@ -1,9 +1,10 @@
 package com.tibiainfo.service;
 
 import com.tibiainfo.exception.NotFoundException;
-import com.tibiainfo.model.Creature;
 import com.tibiainfo.model.dto.CreatureQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
+import com.tibiainfo.model.dto.item.CreatureDTO;
+import com.tibiainfo.model.entity.Creature;
 import org.junit.Test;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CreatureServiceTest {
 
-    private final Long EXISTING_CREATURE = 1150l;
+    private final Long EXISTING_CREATURE = 1150L;
     private final Long NON_EXISTING_CREATURE = -1L;
 
     private final String CREATURE_NAME = "Dog";
@@ -38,7 +39,7 @@ public class CreatureServiceTest {
                 .size(10)
                 .build();
 
-        PageSupportDTO<Creature> creatures = creatureService.getCreatures(creatureQueryDto);
+        PageSupportDTO<CreatureDTO> creatures = creatureService.getCreatures(creatureQueryDto);
 
         assertNotNull(creatures);
         assertNotNull(creatures.getContent());
@@ -59,7 +60,7 @@ public class CreatureServiceTest {
                 .size(10)
                 .build();
 
-        PageSupportDTO<Creature> creatures = creatureService.getCreatures(creatureQueryDto);
+        PageSupportDTO<CreatureDTO> creatures = creatureService.getCreatures(creatureQueryDto);
 
         assertNotNull(creatures);
         assertNotNull(creatures.getContent());

@@ -1,9 +1,9 @@
 package com.tibiainfo.controller;
 
 import com.tibiainfo.exception.NotFoundException;
-import com.tibiainfo.model.Item;
 import com.tibiainfo.model.dto.ItemQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
+import com.tibiainfo.model.dto.item.ItemDTO;
 import com.tibiainfo.service.ItemService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +23,13 @@ public class ItemController {
 
     @GetMapping
     @ApiOperation(value = "Returns a page of items")
-    public PageSupportDTO<Item> getItems(@Valid ItemQueryDTO queryDto) {
+    public PageSupportDTO<ItemDTO> getItems(@Valid ItemQueryDTO queryDto) {
         return itemService.getItems(queryDto);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Returns a specific item")
-    public Item getItemById(@PathVariable Long id) throws NotFoundException {
+    public ItemDTO getItemById(@PathVariable Long id) throws NotFoundException {
         return itemService.getItemById(id);
     }
 

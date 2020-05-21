@@ -1,7 +1,7 @@
 package com.tibiainfo.model.repository.specification;
 
-import com.tibiainfo.model.Item;
 import com.tibiainfo.model.dto.ItemQueryDTO;
+import com.tibiainfo.model.entity.Item;
 import lombok.*;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -41,8 +41,6 @@ public class ItemSpecification implements Specification<Item> {
         predicate = builder.and(predicate, typeEquals);
         return predicate;
     }
-
-    ;
 
     private Predicate getNamePredicate(Root<Item> root, CriteriaBuilder builder, Predicate predicate) {
         Predicate titleEquals = builder.equal(

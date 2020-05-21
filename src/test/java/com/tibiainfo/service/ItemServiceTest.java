@@ -1,9 +1,9 @@
 package com.tibiainfo.service;
 
 import com.tibiainfo.exception.NotFoundException;
-import com.tibiainfo.model.Item;
 import com.tibiainfo.model.dto.ItemQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
+import com.tibiainfo.model.dto.item.ItemDTO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class ItemServiceTest {
                 .size(10)
                 .build();
 
-        PageSupportDTO<Item> items = itemService.getItems(itemQueryDto);
+        PageSupportDTO<ItemDTO> items = itemService.getItems(itemQueryDto);
 
         assertNotNull(items);
         assertNotNull(items.getContent());
@@ -56,7 +56,7 @@ public class ItemServiceTest {
                 .size(10)
                 .build();
 
-        PageSupportDTO<Item> items = itemService.getItems(itemQueryDto);
+        PageSupportDTO<ItemDTO> items = itemService.getItems(itemQueryDto);
 
         assertNotNull(items);
         assertNotNull(items.getContent());
@@ -70,7 +70,7 @@ public class ItemServiceTest {
 
     @Test
     public void testGetItemById() throws NotFoundException {
-        Item fetchedItem = itemService.getItemById(EXISTING_ITEM);
+        ItemDTO fetchedItem = itemService.getItemById(EXISTING_ITEM);
 
         assertNotNull(fetchedItem);
         assertEquals(EXISTING_ITEM, fetchedItem.getId());
