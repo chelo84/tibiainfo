@@ -3,7 +3,7 @@ package com.tibiainfo.service;
 import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.CreatureQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
-import com.tibiainfo.model.dto.item.CreatureDTO;
+import com.tibiainfo.model.dto.creature.CreatureDTO;
 import com.tibiainfo.model.entity.Creature;
 import org.junit.Test;
 import org.junit.jupiter.api.MethodOrderer;

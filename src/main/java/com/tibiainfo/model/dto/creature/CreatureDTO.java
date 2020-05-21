@@ -1,4 +1,4 @@
-package com.tibiainfo.model.dto.item;
+package com.tibiainfo.model.dto.creature;
 
 import com.tibiainfo.model.entity.Creature;
 import lombok.Data;
