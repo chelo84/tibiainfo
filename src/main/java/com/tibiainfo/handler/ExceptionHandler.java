@@ -23,7 +23,7 @@ public class ExceptionHandler {
                 request,
                 HttpStatus.NOT_FOUND
         );
-        log.error(ex.getMessage(), ex);
+
         return new ResponseEntity(errorDetails, HttpStatus.NOT_FOUND);
     }
 
@@ -34,12 +34,12 @@ public class ExceptionHandler {
                 request,
                 HttpStatus.INTERNAL_SERVER_ERROR
         );
-        log.error(ex.getMessage(), ex);
+
         return new ResponseEntity(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private ErrorDTO buildErrorDetails(Exception ex, HttpServletRequest request, HttpStatus httpStatus) {
-        log.error(ex.getMessage(), ex);
+        log.error(ex.getMessage());
         return ErrorDTO.builder()
                 .timestamp(LocalDateTime.now())
                 .status(httpStatus.value())
