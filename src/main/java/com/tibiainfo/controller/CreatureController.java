@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/creature")
+@RequestMapping("/creatures")
 public class CreatureController {
 
     @Autowired
@@ -23,13 +23,13 @@ public class CreatureController {
 
     @GetMapping
     @ApiOperation(value = "Returns a page of creatures")
-    public PageSupportDTO<Creature> getCreature(@Valid CreatureQueryDTO queryDto) {
-        return creatureService.getCreature(queryDto);
+    public PageSupportDTO<Creature> getCreatures(@Valid CreatureQueryDTO queryDto) {
+        return creatureService.getCreatures(queryDto);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Returns a specific creature")
-    public Creature getCreatureById (@PathVariable long id) throws NotFoundException{
-        return creatureService.getCreature(id);
+    public Creature getCreatureById(@PathVariable long id) throws NotFoundException {
+        return creatureService.getCreatureById(id);
     }
 }
