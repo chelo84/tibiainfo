@@ -2,11 +2,9 @@ package com.tibiainfo.service;
 
 import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.Item;
-import com.tibiainfo.model.dto.ItemQueryDto;
-import com.tibiainfo.model.dto.PageSupportDto;
+import com.tibiainfo.model.dto.ItemQueryDTO;
+import com.tibiainfo.model.dto.PageSupportDTO;
 import org.junit.Test;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,7 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ItemServiceTest {
 
     private final Long EXISTING_ITEM = 2303L;
@@ -32,13 +29,13 @@ public class ItemServiceTest {
 
     @Test
     public void testGetItems() {
-        ItemQueryDto itemQueryDto = ItemQueryDto.builder()
+        ItemQueryDTO itemQueryDto = ItemQueryDTO.builder()
                 .type(Optional.empty())
                 .page(0)
                 .size(10)
                 .build();
 
-        PageSupportDto<Item> items = itemService.getItems(itemQueryDto);
+        PageSupportDTO<Item> items = itemService.getItems(itemQueryDto);
 
         assertNotNull(items);
         assertNotNull(items.getContent());
@@ -53,13 +50,13 @@ public class ItemServiceTest {
 
     @Test
     public void testGetItemsOfType() {
-        ItemQueryDto itemQueryDto = ItemQueryDto.builder()
+        ItemQueryDTO itemQueryDto = ItemQueryDTO.builder()
                 .type(Optional.of(BOOTS_TYPE))
                 .page(0)
                 .size(10)
                 .build();
 
-        PageSupportDto<Item> items = itemService.getItems(itemQueryDto);
+        PageSupportDTO<Item> items = itemService.getItems(itemQueryDto);
 
         assertNotNull(items);
         assertNotNull(items.getContent());
