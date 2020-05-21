@@ -57,7 +57,7 @@ public class ExceptionHandler {
     }
 
     private ErrorDTO buildErrorDetails(Exception ex, HttpServletRequest request, HttpStatus httpStatus) {
-        log.error(ex.getMessage());
+        log.error(ex.getMessage(), ex);
         return ErrorDTO.builder()
                 .timestamp(LocalDateTime.now())
                 .status(httpStatus.value())

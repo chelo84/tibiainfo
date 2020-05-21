@@ -38,11 +38,11 @@ public class ItemController {
 
     @GetMapping("/{id}/image")
     @ApiOperation(value = "Returns the item's image")
-    public ResponseEntity<?> getImage(@PathVariable Long id) throws NotFoundException {
+    public ResponseEntity<?> getImage(@PathVariable Long id) {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION)
-                .contentType(MediaType.IMAGE_JPEG)
+                .contentType(MediaType.IMAGE_GIF)
                 .body(itemService.getImage(id));
     }
 

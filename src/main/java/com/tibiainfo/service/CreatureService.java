@@ -7,10 +7,15 @@ import com.tibiainfo.model.dto.creature.CreatureDTO;
 import com.tibiainfo.model.entity.Creature;
 import com.tibiainfo.model.repository.CreatureRepository;
 import com.tibiainfo.model.repository.specification.CreatureSpecification;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+import static com.google.common.io.BaseEncoding.base16;
 
 @Service
 public class CreatureService {
@@ -35,6 +40,15 @@ public class CreatureService {
         return new PageSupportDTO<>(
                 creatures.map(CreatureDTO::new)
         );
+
+    }
+
+    public byte[] getImage(Long id) {
+        String imageStr = creatureRepository.getImageById(id);
+
+        return Optional.of(imageStr).filter(StringUtils::isNotBlank)
+                .map(base16()::decode)
+                .orElse(null);
 
     }
 
