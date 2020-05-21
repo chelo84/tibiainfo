@@ -7,10 +7,15 @@ import com.tibiainfo.model.dto.item.ItemDTO;
 import com.tibiainfo.model.entity.Item;
 import com.tibiainfo.model.repository.ItemRepository;
 import com.tibiainfo.model.repository.specification.ItemSpecification;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+import static com.google.common.io.BaseEncoding.base16;
 
 @Service
 public class ItemService {
@@ -37,5 +42,13 @@ public class ItemService {
                 items.map(ItemDTO::new)
         );
 
+    }
+
+    public byte[] getImage(Long id) {
+        String imageStr = itemRepository.getImageById(id);
+
+        return Optional.of(imageStr).filter(StringUtils::isNotBlank)
+                .map(base16()::decode)
+                .orElse(null);
     }
 }
