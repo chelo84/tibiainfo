@@ -7,6 +7,7 @@ import com.tibiainfo.model.dto.creature.CreatureDTO;
 import com.tibiainfo.model.entity.Creature;
 import com.tibiainfo.service.CreatureService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -39,7 +40,7 @@ public class CreatureController {
 
     @GetMapping("/{id}/image")
     @ApiOperation(value = "Returns the creature's image")
-    public ResponseEntity<?> getImage(@PathVariable Long id) {
+    public ResponseEntity<?> getImage(@ApiParam(example = "1244") @PathVariable Long id) {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION)
