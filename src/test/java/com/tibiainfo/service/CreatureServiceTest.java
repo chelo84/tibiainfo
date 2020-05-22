@@ -1,11 +1,10 @@
 package com.tibiainfo.service;
 
 import com.tibiainfo.exception.NotFoundException;
-import com.tibiainfo.model.dto.CreatureQueryDTO;
-import com.tibiainfo.model.dto.CreatureQueryDTO.CreatureQueryDTOBuilder;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
-import com.tibiainfo.model.dto.creature.CreatureDropDTO;
+import com.tibiainfo.model.dto.query.CreatureQueryDTO;
+import com.tibiainfo.model.dto.query.CreatureQueryDTO.CreatureQueryDTOBuilder;
 import org.junit.Test;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
