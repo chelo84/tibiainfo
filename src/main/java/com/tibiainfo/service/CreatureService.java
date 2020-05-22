@@ -4,8 +4,10 @@ import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.CreatureQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
-import com.tibiainfo.model.entity.Creature;
+import com.tibiainfo.model.dto.creature.CreatureDropDTO;
+import com.tibiainfo.model.entity.creature.Creature;
 import com.tibiainfo.model.repository.CreatureRepository;
+import com.tibiainfo.model.repository.specification.CreatureDropRepository;
 import com.tibiainfo.model.repository.specification.CreatureSpecification;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.google.common.io.BaseEncoding.base16;
 
@@ -22,6 +26,9 @@ public class CreatureService {
 
     @Autowired
     CreatureRepository creatureRepository;
+
+    @Autowired
+    CreatureDropRepository creatureDropRepository;
 
     public Creature getCreatureById(Long id) throws NotFoundException {
         return creatureRepository.findById(id)
@@ -43,8 +50,10 @@ public class CreatureService {
 
     }
 
-    public byte[] getImage(Long id) {
-        String imageStr = creatureRepository.getImageById(id);
+    public byte[] getImage(Long id) throws NotFoundException {
+        var creature = this.getCreatureById(id);
+
+        String imageStr = creatureRepository.getImageById(creature.getId());
 
         return Optional.of(imageStr).filter(StringUtils::isNotBlank)
                 .map(base16()::decode)
@@ -53,4 +62,12 @@ public class CreatureService {
     }
 
 
+    public List<CreatureDropDTO> getDrops(Long id) throws NotFoundException {
+        var creature = this.getCreatureById(id);
+
+        return creatureDropRepository.findAllByCreatureId(creature.getId())
+                .stream()
+                .map(CreatureDropDTO::new)
+                .collect(Collectors.toList());
+    }
 }

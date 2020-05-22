@@ -4,7 +4,8 @@ import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.CreatureQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
-import com.tibiainfo.model.entity.Creature;
+import com.tibiainfo.model.dto.creature.CreatureDropDTO;
+import com.tibiainfo.model.entity.creature.Creature;
 import com.tibiainfo.service.CreatureService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/creatures")
@@ -40,12 +42,18 @@ public class CreatureController {
 
     @GetMapping("/{id}/image")
     @ApiOperation(value = "Returns the creature's image")
-    public ResponseEntity<?> getImage(@ApiParam(example = "1244") @PathVariable Long id) {
+    public ResponseEntity<?> getImage(@ApiParam(example = "1244") @PathVariable Long id) throws NotFoundException {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION)
                 .contentType(MediaType.IMAGE_GIF)
                 .body(creatureService.getImage(id));
 
+    }
+
+    @GetMapping("/{id}/drops")
+    @ApiOperation(value = "Returns the creature's drops info")
+    public List<CreatureDropDTO> getDrops(@ApiParam(example = "1244") @PathVariable Long id) throws NotFoundException {
+        return creatureService.getDrops(id);
     }
 }

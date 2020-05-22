@@ -2,6 +2,7 @@ package com.tibiainfo.service;
 
 import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.ItemQueryDTO;
+import com.tibiainfo.model.dto.ItemQueryDTO.ItemQueryDTOBuilder;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.item.ItemDTO;
 import org.junit.Test;
@@ -24,18 +25,20 @@ public class ItemServiceTest {
 
     private final String BOOTS_TYPE = "Boots";
 
+    private final ItemQueryDTOBuilder<?, ?> ITEM_QUERY_DTO_BUILDER;
+
+    {
+        ITEM_QUERY_DTO_BUILDER = ItemQueryDTO.builder()
+                .page(0)
+                .size(10);
+    }
+
     @Autowired
     private ItemService itemService;
 
     @Test
     public void testGetItems() {
-        ItemQueryDTO itemQueryDto = ItemQueryDTO.builder()
-                .type(Optional.empty())
-                .page(0)
-                .size(10)
-                .build();
-
-        PageSupportDTO<ItemDTO> items = itemService.getItems(itemQueryDto);
+        PageSupportDTO<ItemDTO> items = itemService.getItems(ITEM_QUERY_DTO_BUILDER.build());
 
         assertNotNull(items);
         assertNotNull(items.getContent());
@@ -50,13 +53,9 @@ public class ItemServiceTest {
 
     @Test
     public void testGetItemsOfType() {
-        ItemQueryDTO itemQueryDto = ItemQueryDTO.builder()
-                .type(Optional.of(BOOTS_TYPE))
-                .page(0)
-                .size(10)
-                .build();
-
-        PageSupportDTO<ItemDTO> items = itemService.getItems(itemQueryDto);
+        PageSupportDTO<ItemDTO> items = itemService.getItems(
+                ITEM_QUERY_DTO_BUILDER.type(Optional.of(BOOTS_TYPE)).build()
+        );
 
         assertNotNull(items);
         assertNotNull(items.getContent());
@@ -79,6 +78,18 @@ public class ItemServiceTest {
     @Test(expected = NotFoundException.class)
     public void testGetItemThatDoesNotExist() throws NotFoundException {
         itemService.getItemById(NON_EXISTING_ITEM);
+    }
+
+    @Test
+    public void testGetItemImage() throws NotFoundException {
+        byte[] image = itemService.getImage(EXISTING_ITEM);
+
+        assertNotNull(image);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void testGetItemImageForAnItemThatDoesNotExist() throws NotFoundException {
+        itemService.getImage(NON_EXISTING_ITEM);
     }
 
 }

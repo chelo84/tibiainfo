@@ -1,9 +1,11 @@
 package com.tibiainfo.model.dto.item;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tibiainfo.model.entity.Item;
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ItemDTO {
 
     Long id;

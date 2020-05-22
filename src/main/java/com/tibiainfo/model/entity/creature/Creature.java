@@ -1,13 +1,15 @@
-package com.tibiainfo.model.entity;
+package com.tibiainfo.model.entity.creature;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-@Data
+@Setter
+@Getter
 public class Creature {
 
     @Id
@@ -46,17 +48,17 @@ public class Creature {
 
     Integer summonCost;
 
-    Integer illusionable;
+    Boolean illusionable;
 
-    Integer pushable;
+    Boolean pushable;
 
-    Integer pushObjects;
+    Boolean pushObjects;
 
-    Integer paralysable;
+    Boolean paralysable;
 
-    Integer seesInvisible;
+    Boolean seesInvisible;
 
-    Integer boss;
+    Boolean boss;
 
     Integer modifierPhysical;
 

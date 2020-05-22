@@ -2,9 +2,11 @@ package com.tibiainfo.service;
 
 import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.CreatureQueryDTO;
+import com.tibiainfo.model.dto.CreatureQueryDTO.CreatureQueryDTOBuilder;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
-import com.tibiainfo.model.entity.Creature;
+import com.tibiainfo.model.dto.creature.CreatureDropDTO;
+import com.tibiainfo.model.entity.creature.Creature;
 import org.junit.Test;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -28,18 +31,20 @@ public class CreatureServiceTest {
 
     private final String CREATURE_NAME = "Dog";
 
+    private final CreatureQueryDTOBuilder<?, ?> CREATURE_QUERY_DTO_BUILDER;
+
+    {
+        CREATURE_QUERY_DTO_BUILDER = CreatureQueryDTO.builder()
+                .page(0)
+                .size(10);
+    }
+
     @Autowired
     private CreatureService creatureService;
 
     @Test
     public void testGetCreature() {
-        CreatureQueryDTO creatureQueryDto = CreatureQueryDTO.builder()
-                .name(Optional.empty())
-                .page(0)
-                .size(10)
-                .build();
-
-        PageSupportDTO<CreatureDTO> creatures = creatureService.getCreatures(creatureQueryDto);
+        PageSupportDTO<CreatureDTO> creatures = creatureService.getCreatures(CREATURE_QUERY_DTO_BUILDER.build());
 
         assertNotNull(creatures);
         assertNotNull(creatures.getContent());
@@ -60,7 +65,9 @@ public class CreatureServiceTest {
                 .size(10)
                 .build();
 
-        PageSupportDTO<CreatureDTO> creatures = creatureService.getCreatures(creatureQueryDto);
+        PageSupportDTO<CreatureDTO> creatures = creatureService.getCreatures(
+                CREATURE_QUERY_DTO_BUILDER.name(Optional.of(CREATURE_NAME)).build()
+        );
 
         assertNotNull(creatures);
         assertNotNull(creatures.getContent());
@@ -85,4 +92,34 @@ public class CreatureServiceTest {
     public void testGetCreatureThatDoesExist() throws NotFoundException {
         creatureService.getCreatureById(NON_EXISTING_CREATURE);
     }
+
+    @Test
+    public void testGetCreatureImage() throws NotFoundException {
+        byte[] image = creatureService.getImage(EXISTING_CREATURE);
+
+        assertNotNull(image);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void testGetCreatureImageForACreatureThatDoesNotExist() throws NotFoundException {
+        creatureService.getImage(NON_EXISTING_CREATURE);
+    }
+
+    @Test
+    public void testGetCreatureDrops() throws NotFoundException {
+        List<CreatureDropDTO> drops = creatureService.getDrops(EXISTING_CREATURE);
+
+        assertNotNull(drops);
+        assertFalse(drops.isEmpty());
+        assertTrue(
+                drops.stream()
+                        .allMatch(drop -> drop.getCreatureId().equals(EXISTING_CREATURE))
+        );
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void testGetCreatureDropsForACreatureThatDoesNotExist() throws NotFoundException {
+        creatureService.getDrops(NON_EXISTING_CREATURE);
+    }
+
 }
