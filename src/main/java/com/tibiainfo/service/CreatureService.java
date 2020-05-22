@@ -1,10 +1,9 @@
 package com.tibiainfo.service;
 
 import com.tibiainfo.exception.NotFoundException;
-import com.tibiainfo.model.dto.CreatureQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
-import com.tibiainfo.model.dto.creature.CreatureDropDTO;
+import com.tibiainfo.model.dto.query.CreatureQueryDTO;
 import com.tibiainfo.model.entity.creature.Creature;
 import com.tibiainfo.model.repository.CreatureDropRepository;
 import com.tibiainfo.model.repository.CreatureRepository;
@@ -16,9 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static com.google.common.io.BaseEncoding.base16;
 

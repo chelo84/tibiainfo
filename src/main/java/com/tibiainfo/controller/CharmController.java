@@ -2,10 +2,11 @@ package com.tibiainfo.controller;
 
 import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.PageSupportDTO;
-import com.tibiainfo.model.dto.item.ItemDTO;
-import com.tibiainfo.model.dto.query.ItemQueryDTO;
-import com.tibiainfo.service.ItemService;
+import com.tibiainfo.model.dto.charm.CharmDTO;
+import com.tibiainfo.model.dto.query.CharmQueryDTO;
+import com.tibiainfo.service.CharmService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -18,32 +19,32 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/items")
-public class ItemController {
+@RequestMapping("/charm")
+public class CharmController {
 
     @Autowired
-    ItemService itemService;
+    CharmService charmService;
 
     @GetMapping
-    @ApiOperation(value = "Returns a page of items")
-    public PageSupportDTO<ItemDTO> getItems(@Valid ItemQueryDTO queryDto) {
-        return itemService.getItems(queryDto);
+    @ApiOperation(value = "Returns a page of charm")
+    public PageSupportDTO<CharmDTO> getCharm(@Valid CharmQueryDTO queryDto) {
+        return charmService.getCharms(queryDto);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Returns a specific item")
-    public ItemDTO getItemById(@PathVariable Long id) throws NotFoundException {
-        return itemService.getItemById(id);
+    @ApiOperation(value = "Returns a specific charm")
+    public CharmDTO getCharmById(@PathVariable Long id) throws NotFoundException {
+        return charmService.getCharmById(id);
     }
 
     @GetMapping("/{id}/image")
-    @ApiOperation(value = "Returns the item's image")
-    public ResponseEntity<?> getImage(@PathVariable Long id) throws NotFoundException {
+    @ApiOperation(value = "Returns the charm's image")
+    public ResponseEntity<?> getImage(@ApiParam(example = "31700") @PathVariable Long id) throws NotFoundException {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION)
                 .contentType(MediaType.IMAGE_GIF)
-                .body(itemService.getImage(id));
-    }
+                .body(charmService.getImage(id));
 
+    }
 }

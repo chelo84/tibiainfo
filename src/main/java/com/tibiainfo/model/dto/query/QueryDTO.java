@@ -1,4 +1,4 @@
-package com.tibiainfo.model.dto;
+package com.tibiainfo.model.dto.query;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiParam;

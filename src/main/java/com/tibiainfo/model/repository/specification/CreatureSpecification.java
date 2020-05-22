@@ -1,6 +1,6 @@
 package com.tibiainfo.model.repository.specification;
 
-import com.tibiainfo.model.dto.CreatureQueryDTO;
+import com.tibiainfo.model.dto.query.CreatureQueryDTO;
 import com.tibiainfo.model.entity.creature.Creature;
 import lombok.*;
 import org.springframework.data.jpa.domain.Specification;
