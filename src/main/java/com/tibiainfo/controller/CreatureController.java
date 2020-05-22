@@ -5,7 +5,6 @@ import com.tibiainfo.model.dto.CreatureQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
 import com.tibiainfo.model.dto.creature.CreatureDropDTO;
-import com.tibiainfo.model.entity.creature.Creature;
 import com.tibiainfo.service.CreatureService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -36,7 +35,7 @@ public class CreatureController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Returns a specific creature")
-    public Creature getCreatureById(@PathVariable long id) throws NotFoundException {
+    public CreatureDTO getCreatureById(@PathVariable long id) throws NotFoundException {
         return creatureService.getCreatureById(id);
     }
 

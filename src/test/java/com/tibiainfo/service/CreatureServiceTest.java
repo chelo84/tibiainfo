@@ -6,7 +6,6 @@ import com.tibiainfo.model.dto.CreatureQueryDTO.CreatureQueryDTOBuilder;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
 import com.tibiainfo.model.dto.creature.CreatureDropDTO;
-import com.tibiainfo.model.entity.creature.Creature;
 import org.junit.Test;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -82,7 +81,7 @@ public class CreatureServiceTest {
 
     @Test
     public void testGetCreatureById() throws NotFoundException {
-        Creature fetchedCreature = creatureService.getCreatureById(EXISTING_CREATURE);
+        CreatureDTO fetchedCreature = creatureService.getCreatureById(EXISTING_CREATURE);
 
         assertNotNull(fetchedCreature);
         assertEquals(EXISTING_CREATURE, fetchedCreature.getId());
