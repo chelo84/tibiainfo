@@ -1,4 +1,4 @@
-package com.tibiainfo.model.repository.specification;
+package com.tibiainfo.model.repository;
 
 import com.tibiainfo.model.entity.creature.CreatureDrop;
 import com.tibiainfo.model.entity.creature.CreatureDropId;
