@@ -86,7 +86,7 @@ public class Creature {
 
     Integer timestamp;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creatureId")
     List<CreatureSound> creatureSound;
 
 }
