@@ -1,11 +1,14 @@
 package com.tibiainfo.controller;
 
 import com.tibiainfo.exception.NotFoundException;
-import com.tibiainfo.model.dto.query.ItemQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.item.ItemDTO;
+import com.tibiainfo.model.dto.query.ItemQueryDTO;
 import com.tibiainfo.service.ItemService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.annotations.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -19,6 +22,10 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/items")
+@SwaggerDefinition(tags = {
+        @Tag(name = "Item", description = "Item Resources")
+})
+@Api(tags = {"Item"})
 public class ItemController {
 
     @Autowired

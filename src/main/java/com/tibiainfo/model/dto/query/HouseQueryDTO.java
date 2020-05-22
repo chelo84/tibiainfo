@@ -13,10 +13,18 @@ import java.util.Optional;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CreatureQueryDTO extends QueryDTO {
+public class HouseQueryDTO extends QueryDTO {
 
     @Builder.Default
-    @ApiParam(example = "Monk")
+    @ApiParam(example = "Warriors' Guildhall")
     Optional<String> name = Optional.empty();
+
+    @Builder.Default
+    @ApiParam(example = "Thais")
+    Optional<String> city = Optional.empty();
+
+    @Builder.Default
+    @ApiParam(example = "Temple Street")
+    Optional<String> street = Optional.empty();
 
 }
