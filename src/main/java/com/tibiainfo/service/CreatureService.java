@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,12 +31,14 @@ public class CreatureService {
     @Autowired
     CreatureDropRepository creatureDropRepository;
 
+    @Transactional(readOnly = true)
     public CreatureDTO getCreatureById(Long id) throws NotFoundException {
         return creatureRepository.findById(id)
                 .map(CreatureDTO::new)
                 .orElseThrow(() -> new NotFoundException("Creature not found"));
     }
 
+    @Transactional(readOnly = true)
     public PageSupportDTO<CreatureDTO> getCreatures(CreatureQueryDTO queryDto) {
         PageRequest of = PageRequest.of(queryDto.getPage(), queryDto.getSize());
 
@@ -51,6 +54,7 @@ public class CreatureService {
 
     }
 
+    @Transactional(readOnly = true)
     public byte[] getImage(Long id) throws NotFoundException {
         var creature = this.getCreatureById(id);
 
@@ -62,7 +66,7 @@ public class CreatureService {
 
     }
 
-
+    @Transactional(readOnly = true)
     public List<CreatureDropDTO> getDrops(Long id) throws NotFoundException {
         var creature = this.getCreatureById(id);
 
