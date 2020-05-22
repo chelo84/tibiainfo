@@ -2,7 +2,11 @@ package com.tibiainfo.model.dto.creature;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tibiainfo.model.entity.creature.Creature;
+import com.tibiainfo.model.entity.creature.CreatureSound;
 import lombok.Data;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -80,6 +84,8 @@ public class CreatureDTO {
 
     Integer timestamp;
 
+    List<String> sounds;
+
     public CreatureDTO(Creature creature) {
         this.id = creature.getId();
         this.title = creature.getTitle();
@@ -117,5 +123,9 @@ public class CreatureDTO {
         this.walksAround = creature.getWalksAround();
         this.version = creature.getVersion();
         this.timestamp = creature.getTimestamp();
+        this.sounds = creature.getSounds()
+                .stream()
+                .map(CreatureSound::getContent)
+                .collect(Collectors.toList());
     }
 }

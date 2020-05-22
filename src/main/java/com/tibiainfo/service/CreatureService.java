@@ -30,8 +30,9 @@ public class CreatureService {
     @Autowired
     CreatureDropRepository creatureDropRepository;
 
-    public Creature getCreatureById(Long id) throws NotFoundException {
+    public CreatureDTO getCreatureById(Long id) throws NotFoundException {
         return creatureRepository.findById(id)
+                .map(CreatureDTO::new)
                 .orElseThrow(() -> new NotFoundException("Creature not found"));
     }
 
