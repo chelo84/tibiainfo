@@ -4,8 +4,8 @@ import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.CreatureQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
+import com.tibiainfo.model.dto.creature.CreatureDropDTO;
 import com.tibiainfo.model.entity.creature.Creature;
-import com.tibiainfo.model.entity.creature.CreatureDrop;
 import com.tibiainfo.service.CreatureService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -42,7 +42,7 @@ public class CreatureController {
 
     @GetMapping("/{id}/image")
     @ApiOperation(value = "Returns the creature's image")
-    public ResponseEntity<?> getImage(@ApiParam(example = "1244") @PathVariable Long id) {
+    public ResponseEntity<?> getImage(@ApiParam(example = "1244") @PathVariable Long id) throws NotFoundException {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION)
@@ -52,10 +52,8 @@ public class CreatureController {
     }
 
     @GetMapping("/{id}/drops")
-    @ApiOperation(value = "Returns the creature's drops data")
-    public List<CreatureDrop> getDrops(@ApiParam(example = "1244") @PathVariable Long id) {
-        // TODO change from entity to a DTO
+    @ApiOperation(value = "Returns the creature's drops info")
+    public List<CreatureDropDTO> getDrops(@ApiParam(example = "1244") @PathVariable Long id) throws NotFoundException {
         return creatureService.getDrops(id);
-
     }
 }

@@ -1,9 +1,11 @@
 package com.tibiainfo.model.dto.creature;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tibiainfo.model.entity.creature.Creature;
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CreatureDTO {
 
     Long id;
@@ -40,17 +42,17 @@ public class CreatureDTO {
 
     Integer summonCost;
 
-    Integer illusionable;
+    Boolean illusionable;
 
-    Integer pushable;
+    Boolean pushable;
 
-    Integer pushObjects;
+    Boolean pushObjects;
 
-    Integer paralysable;
+    Boolean paralysable;
 
-    Integer seesInvisible;
+    Boolean seesInvisible;
 
-    Integer boss;
+    Boolean boss;
 
     Integer modifierPhysical;
 

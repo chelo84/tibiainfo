@@ -48,17 +48,17 @@ public class Creature {
 
     Integer summonCost;
 
-    Integer illusionable;
+    Boolean illusionable;
 
-    Integer pushable;
+    Boolean pushable;
 
-    Integer pushObjects;
+    Boolean pushObjects;
 
-    Integer paralysable;
+    Boolean paralysable;
 
-    Integer seesInvisible;
+    Boolean seesInvisible;
 
-    Integer boss;
+    Boolean boss;
 
     Integer modifierPhysical;
 

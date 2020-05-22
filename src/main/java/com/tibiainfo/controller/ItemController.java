@@ -38,7 +38,7 @@ public class ItemController {
 
     @GetMapping("/{id}/image")
     @ApiOperation(value = "Returns the item's image")
-    public ResponseEntity<?> getImage(@PathVariable Long id) {
+    public ResponseEntity<?> getImage(@PathVariable Long id) throws NotFoundException {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION)
