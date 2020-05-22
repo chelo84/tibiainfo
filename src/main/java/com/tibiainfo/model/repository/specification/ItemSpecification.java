@@ -1,7 +1,7 @@
 package com.tibiainfo.model.repository.specification;
 
 import com.tibiainfo.model.dto.query.ItemQueryDTO;
-import com.tibiainfo.model.entity.Item;
+import com.tibiainfo.model.entity.item.Item;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
