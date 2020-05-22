@@ -5,6 +5,8 @@ import com.tibiainfo.model.dto.query.ItemQueryDTO;
 import com.tibiainfo.model.dto.query.ItemQueryDTO.ItemQueryDTOBuilder;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.item.ItemDTO;
+import com.tibiainfo.model.dto.query.ItemQueryDTO;
+import com.tibiainfo.model.dto.query.ItemQueryDTO.ItemQueryDTOBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

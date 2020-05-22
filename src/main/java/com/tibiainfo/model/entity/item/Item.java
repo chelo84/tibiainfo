@@ -1,4 +1,4 @@
-package com.tibiainfo.model.entity;
+package com.tibiainfo.model.entity.item;
 
 import lombok.Data;
 

@@ -4,7 +4,8 @@ import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.query.ItemQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.item.ItemDTO;
-import com.tibiainfo.model.entity.Item;
+import com.tibiainfo.model.dto.query.ItemQueryDTO;
+import com.tibiainfo.model.entity.item.Item;
 import com.tibiainfo.model.repository.ItemRepository;
 import com.tibiainfo.model.repository.specification.ItemSpecification;
 import org.apache.commons.lang3.StringUtils;
@@ -41,7 +42,6 @@ public class ItemService {
         return new PageSupportDTO<>(
                 items.map(ItemDTO::new)
         );
-
     }
 
     public byte[] getImage(Long id) throws NotFoundException {

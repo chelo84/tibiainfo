@@ -31,12 +31,14 @@ public class CreatureController {
     @GetMapping
     @ApiOperation(value = "Returns a page of creatures")
     public PageSupportDTO<CreatureDTO> getCreatures(@Valid CreatureQueryDTO queryDto) {
+
         return creatureService.getCreatures(queryDto);
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Returns a specific creature")
     public CreatureDTO getCreatureById(@PathVariable long id) throws NotFoundException {
+
         return creatureService.getCreatureById(id);
     }
 
@@ -48,6 +50,5 @@ public class CreatureController {
                 .header(HttpHeaders.CONTENT_DISPOSITION)
                 .contentType(MediaType.IMAGE_GIF)
                 .body(creatureService.getImage(id));
-
     }
 }

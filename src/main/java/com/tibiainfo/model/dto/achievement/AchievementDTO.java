@@ -1,6 +1,6 @@
 package com.tibiainfo.model.dto.achievement;
 
-import com.tibiainfo.model.entity.Achievement;
+import com.tibiainfo.model.entity.achievement.Achievement;
 import lombok.Data;
 
 @Data

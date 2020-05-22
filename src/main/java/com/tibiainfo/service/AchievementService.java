@@ -4,7 +4,8 @@ import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.query.AchievementQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.achievement.AchievementDTO;
-import com.tibiainfo.model.entity.Achievement;
+import com.tibiainfo.model.dto.query.AchievementQueryDTO;
+import com.tibiainfo.model.entity.achievement.Achievement;
 import com.tibiainfo.model.repository.AchievementRepository;
 import com.tibiainfo.model.repository.specification.AchievementSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class AchievementService {
                 .orElseThrow(() -> new NotFoundException("Achievement not found"));
     }
 
-    public PageSupportDTO<AchievementDTO> getAchievement(AchievementQueryDTO queryDto) {
+    public PageSupportDTO<AchievementDTO> getAchievements(AchievementQueryDTO queryDto) {
         PageRequest of = PageRequest.of(queryDto.getPage(), queryDto.getSize());
 
         AchievementSpecification specification = AchievementSpecification.builder()

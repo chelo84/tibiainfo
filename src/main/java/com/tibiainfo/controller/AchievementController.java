@@ -30,8 +30,8 @@ public class AchievementController {
 
     @GetMapping
     @ApiOperation(value = "Returns a page of achievement")
-    public PageSupportDTO<AchievementDTO> getAchievement(@Valid AchievementQueryDTO queryDTO) {
-        return achievementService.getAchievement(queryDTO);
+    public PageSupportDTO<AchievementDTO> getAchievements(@Valid AchievementQueryDTO queryDTO) {
+        return achievementService.getAchievements(queryDTO);
     }
 
     @GetMapping({"/{id}"})

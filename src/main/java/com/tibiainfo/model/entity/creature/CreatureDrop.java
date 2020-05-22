@@ -1,6 +1,6 @@
 package com.tibiainfo.model.entity.creature;
 
-import com.tibiainfo.model.entity.Item;
+import com.tibiainfo.model.entity.item.Item;
 import lombok.Getter;
 import lombok.Setter;
 
