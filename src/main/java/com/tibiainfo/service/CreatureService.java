@@ -4,7 +4,7 @@ import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.CreatureQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
-import com.tibiainfo.model.entity.Creature;
+import com.tibiainfo.model.entity.creature.Creature;
 import com.tibiainfo.model.repository.CreatureRepository;
 import com.tibiainfo.model.repository.specification.CreatureSpecification;
 import org.apache.commons.lang3.StringUtils;

@@ -1,10 +1,9 @@
-package com.tibiainfo.model.entity;
+package com.tibiainfo.model.entity.creature;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -84,5 +83,8 @@ public class Creature {
     String version;
 
     Integer timestamp;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "id")
+    List<CreatureSound> creatureSound;
 
 }
