@@ -4,8 +4,10 @@ import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.CreatureQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
-import com.tibiainfo.model.entity.Creature;
+import com.tibiainfo.model.entity.creature.Creature;
+import com.tibiainfo.model.entity.creature.CreatureDrop;
 import com.tibiainfo.model.repository.CreatureRepository;
+import com.tibiainfo.model.repository.specification.CreatureDropRepository;
 import com.tibiainfo.model.repository.specification.CreatureSpecification;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.google.common.io.BaseEncoding.base16;
@@ -22,6 +25,9 @@ public class CreatureService {
 
     @Autowired
     CreatureRepository creatureRepository;
+
+    @Autowired
+    CreatureDropRepository creatureDropRepository;
 
     public Creature getCreatureById(Long id) throws NotFoundException {
         return creatureRepository.findById(id)
@@ -53,4 +59,7 @@ public class CreatureService {
     }
 
 
+    public List<CreatureDrop> getDrops(Long id) {
+        return creatureDropRepository.findAllByCreatureId(id);
+    }
 }

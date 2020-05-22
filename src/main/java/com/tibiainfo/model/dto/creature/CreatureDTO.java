@@ -1,6 +1,6 @@
 package com.tibiainfo.model.dto.creature;
 
-import com.tibiainfo.model.entity.Creature;
+import com.tibiainfo.model.entity.creature.Creature;
 import lombok.Data;
 
 @Data
