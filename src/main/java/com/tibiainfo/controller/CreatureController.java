@@ -50,10 +50,4 @@ public class CreatureController {
                 .body(creatureService.getImage(id));
 
     }
-
-    @GetMapping("/{id}/drops")
-    @ApiOperation(value = "Returns the creature's drops info")
-    public List<CreatureDropDTO> getDrops(@ApiParam(example = "1244") @PathVariable Long id) throws NotFoundException {
-        return creatureService.getDrops(id);
-    }
 }

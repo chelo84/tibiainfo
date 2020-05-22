@@ -66,13 +66,4 @@ public class CreatureService {
 
     }
 
-    @Transactional(readOnly = true)
-    public List<CreatureDropDTO> getDrops(Long id) throws NotFoundException {
-        var creature = this.getCreatureById(id);
-
-        return creatureDropRepository.findAllByCreatureId(creature.getId())
-                .stream()
-                .map(CreatureDropDTO::new)
-                .collect(Collectors.toList());
-    }
 }
