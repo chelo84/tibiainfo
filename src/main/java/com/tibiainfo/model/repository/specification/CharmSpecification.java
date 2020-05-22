@@ -1,7 +1,7 @@
 package com.tibiainfo.model.repository.specification;
 
 import com.tibiainfo.model.dto.query.CharmQueryDTO;
-import com.tibiainfo.model.entity.Charm;
+import com.tibiainfo.model.entity.charm.Charm;
 import lombok.*;
 import org.springframework.data.jpa.domain.Specification;
 

@@ -1,7 +1,7 @@
 package com.tibiainfo.model.repository.specification;
 
 import com.tibiainfo.model.dto.query.AchievementQueryDTO;
-import com.tibiainfo.model.entity.Achievement;
+import com.tibiainfo.model.entity.achievement.Achievement;
 import lombok.*;
 import org.springframework.data.jpa.domain.Specification;
 

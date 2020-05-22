@@ -1,4 +1,4 @@
-package com.tibiainfo.model.entity;
+package com.tibiainfo.model.entity.charm;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 @Entity
 @Data
-public class Achievement {
+public class Charm {
 
     @Id
     @Column(name = "article_id")
@@ -18,17 +18,11 @@ public class Achievement {
 
     String name;
 
-    Integer grade;
+    String type;
 
-    Integer points;
+    String effect;
 
-    String description;
-
-    String spoiler;
-
-    Boolean secret;
-
-    Boolean premium;
+    Integer cost;
 
     String version;
 

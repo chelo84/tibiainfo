@@ -28,6 +28,7 @@ public class CharmController {
     @GetMapping
     @ApiOperation(value = "Returns a page of charm")
     public PageSupportDTO<CharmDTO> getCharm(@Valid CharmQueryDTO queryDto) {
+
         return charmService.getCharms(queryDto);
     }
 

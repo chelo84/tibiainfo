@@ -1,6 +1,6 @@
 package com.tibiainfo.model.repository;
 
-import com.tibiainfo.model.entity.Item;
+import com.tibiainfo.model.entity.item.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;

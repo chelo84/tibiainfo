@@ -2,9 +2,9 @@ package com.tibiainfo.controller;
 
 import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.PageSupportDTO;
-import com.tibiainfo.model.dto.creature.CreatureDTO;
-import com.tibiainfo.model.dto.query.CreatureQueryDTO;
-import com.tibiainfo.service.CreatureService;
+import com.tibiainfo.model.dto.imbuement.ImbuementDTO;
+import com.tibiainfo.model.dto.query.ImbuementQueryDTO;
+import com.tibiainfo.service.ImbuementService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,33 +19,33 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/creatures")
-public class CreatureController {
+@RequestMapping("/imbuements")
+public class ImbuementController {
 
     @Autowired
-    CreatureService creatureService;
+    ImbuementService imbuementService;
 
     @GetMapping
-    @ApiOperation(value = "Returns a page of creatures")
-    public PageSupportDTO<CreatureDTO> getCreatures(@Valid CreatureQueryDTO queryDto) {
+    @ApiOperation(value = "Returns a page of imbuement")
+    public PageSupportDTO<ImbuementDTO> getCharm(@Valid ImbuementQueryDTO queryDto) {
 
-        return creatureService.getCreatures(queryDto);
+        return imbuementService.getImbuements(queryDto);
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "Returns a specific creature")
-    public CreatureDTO getCreatureById(@PathVariable long id) throws NotFoundException {
+    @ApiOperation(value = "Returns a specific imbuement")
+    public ImbuementDTO getImbuementById(@PathVariable Long id) throws NotFoundException {
 
-        return creatureService.getCreatureById(id);
+        return imbuementService.getImbuementById(id);
     }
 
     @GetMapping("/{id}/image")
-    @ApiOperation(value = "Returns the creature's image")
-    public ResponseEntity<?> getImage(@ApiParam(example = "1244") @PathVariable Long id) throws NotFoundException {
+    @ApiOperation(value = "Returns a specific imbuement's image")
+    public ResponseEntity<?> getImage(@ApiParam(example = "80288") @PathVariable Long id) throws NotFoundException {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION)
                 .contentType(MediaType.IMAGE_GIF)
-                .body(creatureService.getImage(id));
+                .body(imbuementService.getImage(id));
     }
 }
