@@ -4,7 +4,7 @@ import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.charm.CharmDTO;
 import com.tibiainfo.model.dto.query.CharmQueryDTO;
-import com.tibiainfo.model.entity.Charm;
+import com.tibiainfo.model.entity.charm.Charm;
 import com.tibiainfo.model.repository.CharmRepository;
 import com.tibiainfo.model.repository.specification.CharmSpecification;
 import org.apache.commons.lang3.StringUtils;

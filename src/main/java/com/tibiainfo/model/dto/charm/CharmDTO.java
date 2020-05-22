@@ -1,6 +1,6 @@
 package com.tibiainfo.model.dto.charm;
 
-import com.tibiainfo.model.entity.Charm;
+import com.tibiainfo.model.entity.charm.Charm;
 import lombok.Data;
 
 @Data

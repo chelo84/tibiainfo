@@ -1,6 +1,6 @@
 package com.tibiainfo.model.repository;
 
-import com.tibiainfo.model.entity.Achievement;
+import com.tibiainfo.model.entity.achievement.Achievement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
