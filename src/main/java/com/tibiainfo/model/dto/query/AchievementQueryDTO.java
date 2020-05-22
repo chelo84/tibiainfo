@@ -1,4 +1,4 @@
-package com.tibiainfo.model.dto;
+package com.tibiainfo.model.dto.query;
 
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;

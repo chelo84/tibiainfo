@@ -1,10 +1,9 @@
 package com.tibiainfo.controller;
 
 import com.tibiainfo.exception.NotFoundException;
-import com.tibiainfo.model.dto.CreatureQueryDTO;
+import com.tibiainfo.model.dto.query.CreatureQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
-import com.tibiainfo.model.dto.creature.CreatureDropDTO;
 import com.tibiainfo.service.CreatureService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/creatures")

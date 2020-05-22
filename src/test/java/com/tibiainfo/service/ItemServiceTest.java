@@ -1,8 +1,8 @@
 package com.tibiainfo.service;
 
 import com.tibiainfo.exception.NotFoundException;
-import com.tibiainfo.model.dto.ItemQueryDTO;
-import com.tibiainfo.model.dto.ItemQueryDTO.ItemQueryDTOBuilder;
+import com.tibiainfo.model.dto.query.ItemQueryDTO;
+import com.tibiainfo.model.dto.query.ItemQueryDTO.ItemQueryDTOBuilder;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.item.ItemDTO;
 import org.junit.Test;

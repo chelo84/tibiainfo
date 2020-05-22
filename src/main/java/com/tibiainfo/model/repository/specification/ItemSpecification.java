@@ -1,6 +1,6 @@
 package com.tibiainfo.model.repository.specification;
 
-import com.tibiainfo.model.dto.ItemQueryDTO;
+import com.tibiainfo.model.dto.query.ItemQueryDTO;
 import com.tibiainfo.model.entity.Item;
 import lombok.*;
 import org.springframework.data.jpa.domain.Specification;

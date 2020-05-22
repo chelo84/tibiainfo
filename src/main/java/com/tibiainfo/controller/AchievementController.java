@@ -1,7 +1,7 @@
 package com.tibiainfo.controller;
 
 import com.tibiainfo.exception.NotFoundException;
-import com.tibiainfo.model.dto.AchievementQueryDTO;
+import com.tibiainfo.model.dto.query.AchievementQueryDTO;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.achievement.AchievementDTO;
 import com.tibiainfo.service.AchievementService;
