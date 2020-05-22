@@ -89,4 +89,7 @@ public class Creature {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "creatureId")
     List<CreatureSound> sounds;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creatureId")
+    List<CreatureDrop> drops;
+
 }

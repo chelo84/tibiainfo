@@ -10,8 +10,6 @@ import lombok.Data;
 @JsonInclude(Include.NON_NULL)
 public class CreatureDropDTO {
 
-    Long creatureId;
-
     ItemDTO item;
 
     Double chance;
@@ -21,7 +19,6 @@ public class CreatureDropDTO {
     Integer max;
 
     public CreatureDropDTO(CreatureDrop creatureDrop) {
-        this.creatureId = creatureDrop.getCreatureId();
         this.item = new ItemDTO(creatureDrop.getItem());
         this.chance = creatureDrop.getChance();
         this.min = creatureDrop.getMin();

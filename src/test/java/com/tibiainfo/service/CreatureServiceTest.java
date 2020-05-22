@@ -103,21 +103,4 @@ public class CreatureServiceTest {
         creatureService.getImage(NON_EXISTING_CREATURE);
     }
 
-    @Test
-    public void testGetCreatureDrops() throws NotFoundException {
-        List<CreatureDropDTO> drops = creatureService.getDrops(EXISTING_CREATURE);
-
-        assertNotNull(drops);
-        assertFalse(drops.isEmpty());
-        assertTrue(
-                drops.stream()
-                        .allMatch(drop -> drop.getCreatureId().equals(EXISTING_CREATURE))
-        );
-    }
-
-    @Test(expected = NotFoundException.class)
-    public void testGetCreatureDropsForACreatureThatDoesNotExist() throws NotFoundException {
-        creatureService.getDrops(NON_EXISTING_CREATURE);
-    }
-
 }

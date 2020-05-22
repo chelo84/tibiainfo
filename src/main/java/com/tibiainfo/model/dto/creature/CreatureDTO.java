@@ -86,6 +86,8 @@ public class CreatureDTO {
 
     List<String> sounds;
 
+    List<CreatureDropDTO> drops;
+
     public CreatureDTO(Creature creature) {
         this.id = creature.getId();
         this.title = creature.getTitle();
@@ -126,6 +128,10 @@ public class CreatureDTO {
         this.sounds = creature.getSounds()
                 .stream()
                 .map(CreatureSound::getContent)
+                .collect(Collectors.toList());
+        this.drops = creature.getDrops()
+                .stream()
+                .map(CreatureDropDTO::new)
                 .collect(Collectors.toList());
     }
 }
