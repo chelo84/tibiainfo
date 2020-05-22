@@ -3,9 +3,8 @@ package com.tibiainfo.model.entity.creature;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Setter
@@ -86,5 +85,8 @@ public class Creature {
     String version;
 
     Integer timestamp;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "creatureId")
+    List<CreatureSound> sounds;
 
 }

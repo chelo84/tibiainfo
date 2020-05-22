@@ -36,7 +36,7 @@ public class CreatureController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Returns a specific creature")
-    public Creature getCreatureById(@PathVariable long id) throws NotFoundException {
+    public CreatureDTO getCreatureById(@PathVariable long id) throws NotFoundException {
         return creatureService.getCreatureById(id);
     }
 
