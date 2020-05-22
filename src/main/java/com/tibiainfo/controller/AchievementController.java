@@ -5,7 +5,10 @@ import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.achievement.AchievementDTO;
 import com.tibiainfo.model.dto.query.AchievementQueryDTO;
 import com.tibiainfo.service.AchievementService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.SwaggerDefinition;
+import io.swagger.annotations.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +19,10 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/achievement")
+@Api(tags = {"Achievement"})
+@SwaggerDefinition(tags = {
+        @Tag(name = "Achievement", description = "Achievement Resources")
+})
 public class AchievementController {
 
     @Autowired

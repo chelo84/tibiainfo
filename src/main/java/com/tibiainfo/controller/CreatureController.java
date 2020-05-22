@@ -5,8 +5,7 @@ import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
 import com.tibiainfo.model.dto.query.CreatureQueryDTO;
 import com.tibiainfo.service.CreatureService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -20,6 +19,10 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/creatures")
+@Api(tags = {"Creature"})
+@SwaggerDefinition(tags = {
+        @Tag(name = "Creature", description = "Creature Resources")
+})
 public class CreatureController {
 
     @Autowired
