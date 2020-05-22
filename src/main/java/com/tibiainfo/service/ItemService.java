@@ -44,8 +44,10 @@ public class ItemService {
 
     }
 
-    public byte[] getImage(Long id) {
-        String imageStr = itemRepository.getImageById(id);
+    public byte[] getImage(Long id) throws NotFoundException {
+        var item = this.getItemById(id);
+
+        String imageStr = itemRepository.getImageById(item.getId());
 
         return Optional.of(imageStr).filter(StringUtils::isNotBlank)
                 .map(base16()::decode)
