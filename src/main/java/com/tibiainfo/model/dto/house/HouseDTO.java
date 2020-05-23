@@ -1,11 +1,9 @@
 package com.tibiainfo.model.dto.house;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tibiainfo.model.entity.house.House;
 import lombok.Data;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class HouseDTO {
 
     Long id;

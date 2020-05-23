@@ -1,6 +1,5 @@
 package com.tibiainfo.model.dto.creature;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tibiainfo.model.entity.creature.Creature;
 import com.tibiainfo.model.entity.creature.CreatureSound;
 import lombok.Data;
@@ -9,7 +8,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CreatureDTO {
 
     Long id;

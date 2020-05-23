@@ -1,11 +1,7 @@
 package com.tibiainfo.model.dto.query;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiParam;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.Min;
@@ -16,7 +12,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class QueryDTO {
 
     @ApiParam(example = "0", allowableValues = "range[0, infinity]", required = true)
