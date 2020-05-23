@@ -2,9 +2,8 @@ package com.tibiainfo.model.entity.imbuement;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,5 +26,8 @@ public class Imbuement {
     String version;
 
     Integer timestamp;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "imbuementId")
+    List<ImbuementMaterial> imbuements;
 
 }
