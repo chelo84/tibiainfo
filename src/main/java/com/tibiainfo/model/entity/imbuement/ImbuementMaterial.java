@@ -16,7 +16,7 @@ public class ImbuementMaterial {
     Long imbuementId;
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     Item item;
 

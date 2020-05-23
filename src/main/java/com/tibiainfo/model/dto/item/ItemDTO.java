@@ -3,6 +3,9 @@ package com.tibiainfo.model.dto.item;
 import com.tibiainfo.model.entity.item.Item;
 import lombok.Data;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Data
 public class ItemDTO {
 
@@ -46,6 +49,8 @@ public class ItemDTO {
 
     Integer timestamp;
 
+    List<ItemAttributeDTO> attributes;
+
     public ItemDTO(Item item) {
         this(item, true);
     }
@@ -73,6 +78,10 @@ public class ItemDTO {
             this.version = item.getVersion();
             this.clientId = item.getClientId();
             this.timestamp = item.getTimestamp();
+            this.attributes = item.getAttributes()
+                    .stream()
+                    .map(ItemAttributeDTO::new)
+                    .collect(Collectors.toList());
         }
     }
 

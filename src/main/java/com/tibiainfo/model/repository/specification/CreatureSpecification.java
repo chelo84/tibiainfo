@@ -10,7 +10,7 @@ public class CreatureSpecification extends TibiaInfoSpecification<Creature> {
     CreatureQueryDTO creatureQueryDto;
 
     public void instructions() {
-        equal("name", creatureQueryDto.getName());
+        equalIgnoreCase("name", creatureQueryDto.getName());
     }
 
 }

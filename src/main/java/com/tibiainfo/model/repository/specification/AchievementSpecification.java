@@ -11,7 +11,7 @@ public class AchievementSpecification extends TibiaInfoSpecification<Achievement
 
     @Override
     public void instructions() {
-        equal("name", achievementQueryDTO.getName());
+        equalIgnoreCase("name", achievementQueryDTO.getName());
     }
 
 }

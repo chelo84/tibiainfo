@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -87,9 +88,9 @@ public class Creature {
     Integer timestamp;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "creatureId")
-    List<CreatureSound> sounds;
+    List<CreatureSound> sounds = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "creatureId")
-    List<CreatureDrop> drops;
+    List<CreatureDrop> drops = new ArrayList<>();
 
 }

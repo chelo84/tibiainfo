@@ -135,4 +135,13 @@ public class ItemServiceTests {
         );
     }
 
+    @Test
+    public void testItemAttributes() throws NotFoundException {
+        ItemDTO fetchedItem = itemService.getItemById(EXISTING_ITEM);
+
+        assertNotNull(fetchedItem);
+        assertNotNull(fetchedItem.getAttributes());
+        assertFalse(fetchedItem.getAttributes().isEmpty());
+    }
+
 }

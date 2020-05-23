@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class AchievementServiceTest {
+public class AchievementServiceTests {
 
     private final Long EXISTING_ACHIEVIEMENT = 16606L;
     private final Long NON_EXISTING_ACHIEVEMENT = -1L;
