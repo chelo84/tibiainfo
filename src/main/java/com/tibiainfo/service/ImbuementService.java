@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -23,12 +24,14 @@ public class ImbuementService {
     @Autowired
     ImbuementRepository imbuementRepository;
 
+    @Transactional(readOnly = true)
     public ImbuementDTO getImbuementById(Long id) throws NotFoundException {
         return imbuementRepository.findById(id)
                 .map(ImbuementDTO::new)
                 .orElseThrow(() -> new NotFoundException("Imbuement not found"));
     }
 
+    @Transactional(readOnly = true)
     public PageSupportDTO<ImbuementDTO> getImbuements(ImbuementQueryDTO queryDTO) {
         PageRequest of = PageRequest.of(queryDTO.getPage(), queryDTO.getSize());
 
@@ -43,6 +46,7 @@ public class ImbuementService {
         );
     }
 
+    @Transactional(readOnly = true)
     public byte[] getImage(Long id) throws NotFoundException {
         var charm = this.getImbuementById(id);
 

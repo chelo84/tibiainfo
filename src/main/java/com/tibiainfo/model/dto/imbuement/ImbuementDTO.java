@@ -25,24 +25,24 @@ public class ImbuementDTO {
 
     Integer timestamp;
 
-    List<ImbuementMaterialDTO> imbuement;
+    List<ImbuementMaterialDTO> materials;
 
-    public ImbuementDTO(Imbuement imbuement) {
-        this(imbuement, true);
+    public ImbuementDTO(Imbuement materials) {
+        this(materials, true);
     }
 
-    public ImbuementDTO(Imbuement imbuement, boolean extended) {
-        this.id = imbuement.getId();
-        this.title = imbuement.getTitle();
+    public ImbuementDTO(Imbuement materials, boolean extended) {
+        this.id = materials.getId();
+        this.title = materials.getTitle();
 
         if (extended) {
-            this.name = imbuement.getName();
-            this.tier = imbuement.getTier();
-            this.type = imbuement.getType();
-            this.effect = imbuement.getEffect();
-            this.version = imbuement.getVersion();
-            this.timestamp = imbuement.getTimestamp();
-            this.imbuement = imbuement.getImbuements()
+            this.name = materials.getName();
+            this.tier = materials.getTier();
+            this.type = materials.getType();
+            this.effect = materials.getEffect();
+            this.version = materials.getVersion();
+            this.timestamp = materials.getTimestamp();
+            this.materials = materials.getImbuements()
                     .stream()
                     .map(ImbuementMaterialDTO::new)
                     .collect(Collectors.toList());
