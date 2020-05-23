@@ -109,8 +109,8 @@ public class TibiaInfoSpecificationTests {
 
         @Override
         public void instructions() {
-            equal("type", Optional.of(BOOTS_TYPE))
-                    .equal("name", Optional.of(BOOTS_OF_HASTE));
+            equalIgnoreCase("type", Optional.of(BOOTS_TYPE))
+                    .equalIgnoreCase("name", Optional.of(BOOTS_OF_HASTE));
         }
 
     }
@@ -126,9 +126,9 @@ public class TibiaInfoSpecificationTests {
 
         @Override
         public void instructions() {
-            equal("name", Optional.of(PLATE_ARMOR))
+            equalIgnoreCase("name", Optional.of(PLATE_ARMOR))
                     .or()
-                    .equal("name", Optional.of(BOOTS_OF_HASTE));
+                    .equalIgnoreCase("name", Optional.of(BOOTS_OF_HASTE));
         }
 
     }
@@ -144,9 +144,9 @@ public class TibiaInfoSpecificationTests {
 
         @Override
         public void instructions() {
-            equal("type", Optional.of(BOOTS_TYPE))
+            equalIgnoreCase("type", Optional.of(BOOTS_TYPE))
                     .and()
-                    .equal("name", Optional.of(BOOTS_OF_HASTE));
+                    .equalIgnoreCase("name", Optional.of(BOOTS_OF_HASTE));
         }
 
     }
@@ -162,9 +162,9 @@ public class TibiaInfoSpecificationTests {
 
         @Override
         public void instructions() {
-            equal("type", Optional.of(BOOTS_TYPE))
+            equalIgnoreCase("type", Optional.of(BOOTS_TYPE))
                     .or()
-                    .equal("name", Optional.of(PLATE_ARMOR));
+                    .equalIgnoreCase("name", Optional.of(PLATE_ARMOR));
         }
 
     }

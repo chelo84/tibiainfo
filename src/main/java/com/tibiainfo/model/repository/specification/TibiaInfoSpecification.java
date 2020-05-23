@@ -100,7 +100,7 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
         }
     }
 
-    TibiaInfoSpecification<T> equal(String field, Optional<String> optional) {
+    TibiaInfoSpecification<T> equalIgnoreCase(String field, Optional<String> optional) {
         if (optional.isPresent()) {
             Predicate equalPredicate = builder.equal(
                     builder.upper(root.get(field)),
@@ -112,6 +112,20 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
 
         return this;
     }
+
+    TibiaInfoSpecification<T> equal(String field, Optional<? extends Object> optional) {
+        if (optional.isPresent()) {
+            Predicate equalPredicate = builder.equal(
+                    root.get(field),
+                    optional.get()
+            );
+
+            addInstruction(equalPredicate);
+        }
+
+        return this;
+    }
+
 
     TibiaInfoSpecification<T> like(String field, Optional<String> optional) {
         if (optional.isPresent()) {

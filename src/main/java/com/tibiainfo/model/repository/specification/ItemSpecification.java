@@ -11,8 +11,8 @@ public class ItemSpecification extends TibiaInfoSpecification<Item> {
 
     @Override
     public void instructions() {
-        equal("type", itemQueryDto.getType())
-                .equal("name", itemQueryDto.getName());
+        equalIgnoreCase("type", itemQueryDto.getType())
+                .equalIgnoreCase("name", itemQueryDto.getName());
     }
 
 }
