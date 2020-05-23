@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Predicate.BooleanOperator;
 import javax.persistence.criteria.Root;
 import java.util.Optional;
 import java.util.function.Function;
@@ -25,7 +26,7 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
     Predicate predicate;
     Predicate currentPredicate;
 
-    Instruction continueInstruction;
+    BooleanOperator operator;
 
     @Override
     public Predicate toPredicate(Root<T> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
@@ -44,7 +45,7 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
 
     private void mergeCurrentPredicateToPredicate() {
         if (nonNull(currentPredicate)) {
-            if (currentPredicate.getOperator().equals(Predicate.BooleanOperator.AND)
+            if (currentPredicate.getOperator().equals(BooleanOperator.AND)
                     || predicate.getExpressions().isEmpty()) {
                 predicate = builder.and(predicate, currentPredicate);
             } else {
@@ -58,12 +59,12 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
     }
 
     private void addInstruction(Predicate predicateToAdd) {
-        if (nonNull(continueInstruction)) {
+        if (nonNull(operator)) {
             currentPredicate = Optional.ofNullable(currentPredicate)
                     .map(newPredicate(predicateToAdd))
                     .orElseGet(newPredicateWithoutCurrentPredicate(predicateToAdd));
 
-            continueInstruction = null;
+            operator = null;
         } else {
             currentPredicate = builder.and(
                     Optional.ofNullable(currentPredicate)
@@ -74,7 +75,7 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
     }
 
     private Supplier<Predicate> newPredicateWithoutCurrentPredicate(Predicate predicateToAdd) {
-        switch (continueInstruction) {
+        switch (operator) {
             case AND: {
                 return () -> builder.and(predicateToAdd);
             }
@@ -82,12 +83,12 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
                 return () -> builder.or(predicateToAdd);
             }
             default:
-                throw new RuntimeException("This instruction does not exist or it is not implemented.");
+                throw new RuntimeException("Operator not found");
         }
     }
 
     private Function<Predicate, Predicate> newPredicate(Predicate predicateToAdd) {
-        switch (continueInstruction) {
+        switch (operator) {
             case AND: {
                 return (currentPredicate) -> builder.and(currentPredicate, predicateToAdd);
             }
@@ -95,7 +96,7 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
                 return (currentPredicate) -> builder.or(currentPredicate, predicateToAdd);
             }
             default:
-                throw new RuntimeException("This instruction does not exist or it is not implemented.");
+                throw new RuntimeException("Operator not found");
         }
     }
 
@@ -126,13 +127,13 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
     }
 
     TibiaInfoSpecification<T> and() {
-        continueInstruction = Instruction.AND;
+        operator = BooleanOperator.AND;
 
         return this;
     }
 
     TibiaInfoSpecification<T> or() {
-        continueInstruction = Instruction.OR;
+        operator = BooleanOperator.OR;
 
         return this;
     }
@@ -141,7 +142,7 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
         predicate = builder.and(predicate, currentPredicate);
 
         currentPredicate = null;
-        continueInstruction = null;
+        operator = null;
 
         return this;
     }
