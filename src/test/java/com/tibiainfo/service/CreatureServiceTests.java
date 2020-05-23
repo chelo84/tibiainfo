@@ -1,10 +1,10 @@
 package com.tibiainfo.service;
 
 import com.tibiainfo.exception.NotFoundException;
-import com.tibiainfo.model.dto.query.CreatureQueryDTO;
-import com.tibiainfo.model.dto.query.CreatureQueryDTO.CreatureQueryDTOBuilder;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.creature.CreatureDTO;
+import com.tibiainfo.model.dto.query.CreatureQueryDTO;
+import com.tibiainfo.model.dto.query.CreatureQueryDTO.CreatureQueryDTOBuilder;
 import org.junit.Test;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class CreatureServiceTest {
+public class CreatureServiceTests {
 
     private final Long EXISTING_CREATURE = 1150L;
     private final Long NON_EXISTING_CREATURE = -1L;
