@@ -2,7 +2,6 @@ package com.tibiainfo.model.repository.specification;
 
 import com.tibiainfo.model.entity.item.Item;
 import com.tibiainfo.model.repository.ItemRepository;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
+import static org.apache.commons.lang3.StringUtils.equalsAnyIgnoreCase;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -37,9 +37,6 @@ public class TibiaInfoSpecificationTests {
 
         assertNotNull(items);
         assertNotNull(items.getContent());
-        assertNotNull(items.getNumberOfElements());
-        assertNotNull(items.getTotalElements());
-        assertNotNull(items.getTotalPages());
 
         assertFalse(items.isEmpty());
         assertFalse(items.getContent().isEmpty());
@@ -53,16 +50,13 @@ public class TibiaInfoSpecificationTests {
 
         assertNotNull(items);
         assertNotNull(items.getContent());
-        assertNotNull(items.getNumberOfElements());
-        assertNotNull(items.getTotalElements());
-        assertNotNull(items.getTotalPages());
 
         assertFalse(items.isEmpty());
         assertFalse(items.getContent().isEmpty());
         assertTrue(
                 items.getContent()
                         .stream()
-                        .allMatch(i -> StringUtils.equalsAnyIgnoreCase(i.getName(), PLATE_ARMOR, BOOTS_OF_HASTE))
+                        .allMatch(i -> equalsAnyIgnoreCase(i.getName(), PLATE_ARMOR, BOOTS_OF_HASTE))
         );
     }
 
@@ -74,9 +68,6 @@ public class TibiaInfoSpecificationTests {
 
         assertNotNull(items);
         assertNotNull(items.getContent());
-        assertNotNull(items.getNumberOfElements());
-        assertNotNull(items.getTotalElements());
-        assertNotNull(items.getTotalPages());
 
         assertFalse(items.isEmpty());
         assertFalse(items.getContent().isEmpty());
@@ -84,6 +75,26 @@ public class TibiaInfoSpecificationTests {
                 items.getContent()
                         .stream()
                         .allMatch(i -> i.getName().equalsIgnoreCase(BOOTS_OF_HASTE))
+        );
+    }
+
+    @Test
+    public void testAllBootsAndPlateArmor() {
+        TibiaInfoSpecification<Item> specification = new AllBootsAndPlateArmorSpecification();
+
+        Page<Item> items = itemRepository.findAll(specification, PageRequest.of(0, Integer.MAX_VALUE));
+
+        assertNotNull(items);
+        assertNotNull(items.getContent());
+
+        assertFalse(items.isEmpty());
+        assertFalse(items.getContent().isEmpty());
+        assertTrue(
+                items.getContent()
+                        .stream()
+                        .allMatch(i -> i.getType().equalsIgnoreCase(BOOTS_TYPE)
+                                || i.getName().equalsIgnoreCase(PLATE_ARMOR)
+                        )
         );
     }
 
@@ -140,4 +151,21 @@ public class TibiaInfoSpecificationTests {
 
     }
 
+    private class AllBootsAndPlateArmorSpecification extends TibiaInfoSpecification<Item> {
+
+        protected AllBootsAndPlateArmorSpecification(TibiaInfoSpecificationBuilder<Item, ?, ?> b) {
+            super(b);
+        }
+
+        public AllBootsAndPlateArmorSpecification() {
+        }
+
+        @Override
+        public void instructions() {
+            equal("type", Optional.of(BOOTS_TYPE))
+                    .or()
+                    .equal("name", Optional.of(PLATE_ARMOR));
+        }
+
+    }
 }

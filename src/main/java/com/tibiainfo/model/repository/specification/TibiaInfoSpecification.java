@@ -8,12 +8,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static java.util.Map.entry;
 import static java.util.Objects.nonNull;
 
 @SuperBuilder
@@ -38,17 +36,22 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
 
         instructions();
 
+        mergeCurrentPredicateToPredicate();
+
+        return Optional.ofNullable(predicate)
+                .orElseGet(builder::and);
+    }
+
+    private void mergeCurrentPredicateToPredicate() {
         if (nonNull(currentPredicate)) {
-            if (currentPredicate.getOperator().equals(Predicate.BooleanOperator.AND) || predicate.getExpressions().isEmpty()) {
+            if (currentPredicate.getOperator().equals(Predicate.BooleanOperator.AND)
+                    || predicate.getExpressions().isEmpty()) {
                 predicate = builder.and(predicate, currentPredicate);
             } else {
                 predicate = builder.or(predicate, currentPredicate);
             }
             currentPredicate = null;
         }
-
-        return Optional.ofNullable(predicate)
-                .orElseGet(builder::and);
     }
 
     public void instructions() {
@@ -56,10 +59,9 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
 
     private void addInstruction(Predicate predicateToAdd) {
         if (nonNull(continueInstruction)) {
-            Map.Entry<Function<Predicate, Predicate>, Supplier<Predicate>> newPredicateFunction = getNewPredicateFunction(predicateToAdd);
             currentPredicate = Optional.ofNullable(currentPredicate)
-                    .map(newPredicateFunction.getKey())
-                    .orElseGet(newPredicateFunction.getValue());
+                    .map(newPredicate(predicateToAdd))
+                    .orElseGet(newPredicateWithoutCurrentPredicate(predicateToAdd));
 
             continueInstruction = null;
         } else {
@@ -71,19 +73,26 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
         }
     }
 
-    private Map.Entry<Function<Predicate, Predicate>, Supplier<Predicate>> getNewPredicateFunction(Predicate predicateToAdd) {
+    private Supplier<Predicate> newPredicateWithoutCurrentPredicate(Predicate predicateToAdd) {
         switch (continueInstruction) {
             case AND: {
-                return entry(
-                        (currentPredicate) -> builder.and(currentPredicate, predicateToAdd),
-                        () -> builder.and(predicateToAdd)
-                );
+                return () -> builder.and(predicateToAdd);
             }
             case OR: {
-                return entry(
-                        (currentPredicate) -> builder.or(currentPredicate, predicateToAdd),
-                        () -> builder.or(predicateToAdd)
-                );
+                return () -> builder.or(predicateToAdd);
+            }
+            default:
+                throw new RuntimeException("This instruction does not exist or it is not implemented.");
+        }
+    }
+
+    private Function<Predicate, Predicate> newPredicate(Predicate predicateToAdd) {
+        switch (continueInstruction) {
+            case AND: {
+                return (currentPredicate) -> builder.and(currentPredicate, predicateToAdd);
+            }
+            case OR: {
+                return (currentPredicate) -> builder.or(currentPredicate, predicateToAdd);
             }
             default:
                 throw new RuntimeException("This instruction does not exist or it is not implemented.");
