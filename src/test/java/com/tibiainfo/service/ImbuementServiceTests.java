@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ImbuementServiceTest {
+public class ImbuementServiceTests {
 
     private final Long EXISTING_IMBUEMENT = 80101L;
     private final Long NON_EXISTING_IMBUEMENT = -1L;
