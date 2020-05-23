@@ -29,17 +29,17 @@ public class ImbuementService {
                 .orElseThrow(() -> new NotFoundException("Imbuement not found"));
     }
 
-    public PageSupportDTO<ImbuementDTO> getImbuements(ImbuementQueryDTO queryDto) {
-        PageRequest of = PageRequest.of(queryDto.getPage(), queryDto.getSize());
+    public PageSupportDTO<ImbuementDTO> getImbuements(ImbuementQueryDTO queryDTO) {
+        PageRequest of = PageRequest.of(queryDTO.getPage(), queryDTO.getSize());
 
         ImbuementSpecification specification = ImbuementSpecification.builder()
-                .imbuementQueryDTO(queryDto)
+                .imbuementQueryDTO(queryDTO)
                 .build();
 
         Page<Imbuement> imbuements = imbuementRepository.findAll(specification, of);
 
         return new PageSupportDTO<>(
-                imbuements.map(ImbuementDTO::new)
+                imbuements.map(imbuement -> new ImbuementDTO(imbuement, queryDTO.isExtended()))
         );
     }
 

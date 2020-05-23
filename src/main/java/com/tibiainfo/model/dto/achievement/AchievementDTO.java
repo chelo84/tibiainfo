@@ -29,16 +29,24 @@ public class AchievementDTO {
     Integer timestamp;
 
     public AchievementDTO(Achievement achievement) {
+        this(achievement, true);
+    }
+
+    public AchievementDTO(Achievement achievement, boolean extended) {
         this.id = achievement.getId();
         this.title = achievement.getTitle();
-        this.name = achievement.getName();
-        this.grade = achievement.getGrade();
-        this.points = achievement.getPoints();
-        this.description = achievement.getDescription();
-        this.spoiler = achievement.getSpoiler();
-        this.secret = achievement.getSecret();
-        this.premium = achievement.getPremium();
-        this.version = achievement.getVersion();
-        this.timestamp = achievement.getTimestamp();
+
+        if (extended) {
+            this.name = achievement.getName();
+            this.grade = achievement.getGrade();
+            this.points = achievement.getPoints();
+            this.description = achievement.getDescription();
+            this.spoiler = achievement.getSpoiler();
+            this.secret = achievement.getSecret();
+            this.premium = achievement.getPremium();
+            this.version = achievement.getVersion();
+            this.timestamp = achievement.getTimestamp();
+        }
     }
+
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -28,19 +29,19 @@ public class CreatureServiceTests {
 
     private final String CREATURE_NAME = "Dog";
 
-    private final CreatureQueryDTOBuilder<?, ?> CREATURE_QUERY_DTO_BUILDER;
+    private final CreatureQueryDTOBuilder<?, ?> QUERY_DTO_BUILDER;
     @Autowired
     private CreatureService creatureService;
 
     {
-        CREATURE_QUERY_DTO_BUILDER = CreatureQueryDTO.builder()
+        QUERY_DTO_BUILDER = CreatureQueryDTO.builder()
                 .page(0)
                 .size(10);
     }
 
     @Test
     public void testGetCreature() {
-        PageSupportDTO<CreatureDTO> creatures = creatureService.getCreatures(CREATURE_QUERY_DTO_BUILDER.build());
+        PageSupportDTO<CreatureDTO> creatures = creatureService.getCreatures(QUERY_DTO_BUILDER.build());
 
         assertNotNull(creatures);
         assertNotNull(creatures.getContent());
@@ -62,7 +63,7 @@ public class CreatureServiceTests {
                 .build();
 
         PageSupportDTO<CreatureDTO> creatures = creatureService.getCreatures(
-                CREATURE_QUERY_DTO_BUILDER.name(Optional.of(CREATURE_NAME)).build()
+                QUERY_DTO_BUILDER.name(Optional.of(CREATURE_NAME)).extended(true).build()
         );
 
         assertNotNull(creatures);
@@ -99,6 +100,40 @@ public class CreatureServiceTests {
     @Test(expected = NotFoundException.class)
     public void testGetCreatureImageForACreatureThatDoesNotExist() throws NotFoundException {
         creatureService.getImage(NON_EXISTING_CREATURE);
+    }
+
+    @Test
+    public void testGetItemsWithNonExtendedJson() {
+        PageSupportDTO<CreatureDTO> items = creatureService.getCreatures(
+                QUERY_DTO_BUILDER.build()
+        );
+
+        assertNotNull(items);
+        assertNotNull(items.getContent());
+        assertFalse(items.isEmpty());
+        assertTrue(
+                items.getContent()
+                        .stream()
+                        .map(CreatureDTO::getSpeed)
+                        .allMatch(Objects::isNull)
+        );
+    }
+
+    @Test
+    public void testGetItemsWithExtendedJson() {
+        PageSupportDTO<CreatureDTO> items = creatureService.getCreatures(
+                QUERY_DTO_BUILDER.extended(true).build()
+        );
+
+        assertNotNull(items);
+        assertNotNull(items.getContent());
+        assertFalse(items.isEmpty());
+        assertTrue(
+                items.getContent()
+                        .stream()
+                        .map(CreatureDTO::getSpeed)
+                        .anyMatch(Objects::nonNull)
+        );
     }
 
 }

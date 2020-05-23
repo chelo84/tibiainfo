@@ -23,13 +23,21 @@ public class CharmDTO {
     Integer timestamp;
 
     public CharmDTO(Charm charm) {
+        this(charm, true);
+    }
+
+    public CharmDTO(Charm charm, boolean extended) {
         this.id = charm.getId();
         this.title = charm.getTitle();
-        this.name = charm.getName();
-        this.type = charm.getType();
-        this.effect = charm.getEffect();
         this.cost = charm.getCost();
-        this.version = charm.getVersion();
-        this.timestamp = charm.getTimestamp();
+
+        if (extended) {
+            this.name = charm.getName();
+            this.type = charm.getType();
+            this.effect = charm.getEffect();
+            this.version = charm.getVersion();
+            this.timestamp = charm.getTimestamp();
+        }
     }
+
 }

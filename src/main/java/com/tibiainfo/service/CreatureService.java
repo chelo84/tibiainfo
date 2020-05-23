@@ -36,17 +36,17 @@ public class CreatureService {
     }
 
     @Transactional(readOnly = true)
-    public PageSupportDTO<CreatureDTO> getCreatures(CreatureQueryDTO queryDto) {
-        PageRequest of = PageRequest.of(queryDto.getPage(), queryDto.getSize());
+    public PageSupportDTO<CreatureDTO> getCreatures(CreatureQueryDTO queryDTO) {
+        PageRequest of = PageRequest.of(queryDTO.getPage(), queryDTO.getSize());
 
         CreatureSpecification specification = CreatureSpecification.builder()
-                .creatureQueryDto(queryDto)
+                .creatureQueryDto(queryDTO)
                 .build();
 
         Page<Creature> creatures = creatureRepository.findAll(specification, of);
 
         return new PageSupportDTO<>(
-                creatures.map(CreatureDTO::new)
+                creatures.map(creature -> new CreatureDTO(creature, queryDTO.isExtended()))
         );
 
     }

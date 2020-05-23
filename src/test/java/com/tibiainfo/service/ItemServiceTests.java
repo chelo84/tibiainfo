@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -25,20 +26,19 @@ public class ItemServiceTests {
 
     private final String BOOTS_TYPE = "Boots";
 
-    private final ItemQueryDTOBuilder<?, ?> ITEM_QUERY_DTO_BUILDER;
+    private final ItemQueryDTOBuilder<?, ?> QUERY_DTO_BUILDER;
+    @Autowired
+    private ItemService itemService;
 
     {
-        ITEM_QUERY_DTO_BUILDER = ItemQueryDTO.builder()
+        QUERY_DTO_BUILDER = ItemQueryDTO.builder()
                 .page(0)
                 .size(10);
     }
 
-    @Autowired
-    private ItemService itemService;
-
     @Test
     public void testGetItems() {
-        PageSupportDTO<ItemDTO> items = itemService.getItems(ITEM_QUERY_DTO_BUILDER.build());
+        PageSupportDTO<ItemDTO> items = itemService.getItems(QUERY_DTO_BUILDER.build());
 
         assertNotNull(items);
         assertNotNull(items.getContent());
@@ -54,7 +54,7 @@ public class ItemServiceTests {
     @Test
     public void testGetItemsOfType() {
         PageSupportDTO<ItemDTO> items = itemService.getItems(
-                ITEM_QUERY_DTO_BUILDER.type(Optional.of(BOOTS_TYPE)).build()
+                QUERY_DTO_BUILDER.type(Optional.of(BOOTS_TYPE)).build()
         );
 
         assertNotNull(items);
@@ -95,9 +95,44 @@ public class ItemServiceTests {
     @Test
     public void testGetItemByNameAndType() {
         itemService.getItems(
-                ITEM_QUERY_DTO_BUILDER.type(Optional.of(BOOTS_TYPE))
+                QUERY_DTO_BUILDER.type(Optional.of(BOOTS_TYPE))
                         .name(Optional.of("Boots of Hste"))
                         .build()
         );
     }
+
+    @Test
+    public void testGetItemsWithNonExtendedJson() {
+        PageSupportDTO<ItemDTO> items = itemService.getItems(
+                QUERY_DTO_BUILDER.build()
+        );
+
+        assertNotNull(items);
+        assertNotNull(items.getContent());
+        assertFalse(items.isEmpty());
+        assertTrue(
+                items.getContent()
+                        .stream()
+                        .map(ItemDTO::getValueSell)
+                        .allMatch(Objects::isNull)
+        );
+    }
+
+    @Test
+    public void testGetItemsWithExtendedJson() {
+        PageSupportDTO<ItemDTO> items = itemService.getItems(
+                QUERY_DTO_BUILDER.extended(true).build()
+        );
+
+        assertNotNull(items);
+        assertNotNull(items.getContent());
+        assertFalse(items.isEmpty());
+        assertTrue(
+                items.getContent()
+                        .stream()
+                        .map(ItemDTO::getValueSell)
+                        .anyMatch(Objects::nonNull)
+        );
+    }
+
 }

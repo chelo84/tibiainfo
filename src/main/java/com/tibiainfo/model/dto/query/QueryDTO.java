@@ -22,4 +22,8 @@ public class QueryDTO {
     @Min(1) @NotNull
     Integer size;
 
+    @ApiParam(example = "false", defaultValue = "false", value = "Whether the json should contain the full data or not")
+    @Builder.Default
+    boolean extended = false;
+
 }

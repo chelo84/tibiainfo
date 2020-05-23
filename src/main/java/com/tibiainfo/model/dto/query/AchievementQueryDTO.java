@@ -1,10 +1,7 @@
 package com.tibiainfo.model.dto.query;
 
 import io.swagger.annotations.ApiParam;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.Optional;
@@ -16,6 +13,8 @@ import java.util.Optional;
 @NoArgsConstructor
 public class AchievementQueryDTO extends QueryDTO {
 
+    @Builder.Default
     @ApiParam(example = "Annihilator")
     Optional<String> name = Optional.empty();
+
 }
