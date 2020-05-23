@@ -1,13 +1,10 @@
 package com.tibiainfo.model.dto.creature;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.tibiainfo.model.dto.item.ItemDTO;
 import com.tibiainfo.model.entity.creature.CreatureDrop;
 import lombok.Data;
 
 @Data
-@JsonInclude(Include.NON_NULL)
 public class CreatureDropDTO {
 
     ItemDTO item;

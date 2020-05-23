@@ -1,11 +1,9 @@
 package com.tibiainfo.model.dto.house;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tibiainfo.model.entity.house.House;
 import lombok.Data;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class HouseDTO {
 
     Long id;
@@ -45,24 +43,31 @@ public class HouseDTO {
     Integer timestamp;
 
     public HouseDTO(House house) {
+        this(house, true);
+    }
+
+    public HouseDTO(House house, boolean extended) {
         this.id = house.getId();
         this.houseId = house.getHouseId();
-        this.title = house.getTitle();
         this.name = house.getName();
+        this.title = house.getTitle();
         this.city = house.getCity();
-        this.street = house.getStreet();
-        this.location = house.getLocation();
-        this.beds = house.getBeds();
-        this.rent = house.getRent();
-        this.size = house.getSize();
-        this.rooms = house.getRooms();
-        this.floors = house.getFloors();
-        this.x = house.getX();
-        this.y = house.getY();
-        this.z = house.getZ();
-        this.guildhall = house.getGuildhall();
-        this.version = house.getVersion();
-        this.timestamp = house.getTimestamp();
+
+        if (extended) {
+            this.street = house.getStreet();
+            this.location = house.getLocation();
+            this.beds = house.getBeds();
+            this.rent = house.getRent();
+            this.size = house.getSize();
+            this.rooms = house.getRooms();
+            this.floors = house.getFloors();
+            this.x = house.getX();
+            this.y = house.getY();
+            this.z = house.getZ();
+            this.guildhall = house.getGuildhall();
+            this.version = house.getVersion();
+            this.timestamp = house.getTimestamp();
+        }
     }
 
 }

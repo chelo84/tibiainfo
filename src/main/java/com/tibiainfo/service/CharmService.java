@@ -29,18 +29,17 @@ public class CharmService {
                 .orElseThrow(() -> new NotFoundException("Charm not found"));
     }
 
-
-    public PageSupportDTO<CharmDTO> getCharms(CharmQueryDTO queryDto) {
-        PageRequest of = PageRequest.of(queryDto.getPage(), queryDto.getSize());
+    public PageSupportDTO<CharmDTO> getCharms(CharmQueryDTO queryDTO) {
+        PageRequest of = PageRequest.of(queryDTO.getPage(), queryDTO.getSize());
 
         CharmSpecification specification = CharmSpecification.builder()
-                .charmQueryDTO(queryDto)
+                .charmQueryDTO(queryDTO)
                 .build();
 
         Page<Charm> charms = charmRepository.findAll(specification, of);
 
         return new PageSupportDTO<>(
-                charms.map(CharmDTO::new)
+                charms.map(charm -> new CharmDTO(charm, queryDTO.isExtended()))
         );
     }
 

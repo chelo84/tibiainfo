@@ -24,17 +24,17 @@ public class AchievementService {
                 .orElseThrow(() -> new NotFoundException("Achievement not found"));
     }
 
-    public PageSupportDTO<AchievementDTO> getAchievements(AchievementQueryDTO queryDto) {
-        PageRequest of = PageRequest.of(queryDto.getPage(), queryDto.getSize());
+    public PageSupportDTO<AchievementDTO> getAchievements(AchievementQueryDTO queryDTO) {
+        PageRequest of = PageRequest.of(queryDTO.getPage(), queryDTO.getSize());
 
         AchievementSpecification specification = AchievementSpecification.builder()
-                .achievementQueryDTO(queryDto)
+                .achievementQueryDTO(queryDTO)
                 .build();
 
         Page<Achievement> achievement = achievementRepository.findAll(specification, of);
 
         return new PageSupportDTO<>(
-                achievement.map(AchievementDTO::new)
+                achievement.map(ach -> new AchievementDTO(ach, queryDTO.isExtended()))
         );
 
     }

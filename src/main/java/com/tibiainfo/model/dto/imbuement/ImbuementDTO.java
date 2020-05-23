@@ -1,6 +1,5 @@
 package com.tibiainfo.model.dto.imbuement;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tibiainfo.model.entity.imbuement.Imbuement;
 import lombok.Data;
 
@@ -8,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ImbuementDTO {
 
     Long id;
@@ -30,17 +28,24 @@ public class ImbuementDTO {
     List<ImbuementMaterialDTO> imbuement;
 
     public ImbuementDTO(Imbuement imbuement) {
+        this(imbuement, true);
+    }
+
+    public ImbuementDTO(Imbuement imbuement, boolean extended) {
         this.id = imbuement.getId();
         this.title = imbuement.getTitle();
-        this.name = imbuement.getName();
-        this.tier = imbuement.getTier();
-        this.type = imbuement.getType();
-        this.effect = imbuement.getEffect();
-        this.version = imbuement.getVersion();
-        this.timestamp = imbuement.getTimestamp();
-        this.imbuement = imbuement.getImbuements()
-                .stream()
-                .map(ImbuementMaterialDTO::new)
-                .collect(Collectors.toList());
+
+        if (extended) {
+            this.name = imbuement.getName();
+            this.tier = imbuement.getTier();
+            this.type = imbuement.getType();
+            this.effect = imbuement.getEffect();
+            this.version = imbuement.getVersion();
+            this.timestamp = imbuement.getTimestamp();
+            this.imbuement = imbuement.getImbuements()
+                    .stream()
+                    .map(ImbuementMaterialDTO::new)
+                    .collect(Collectors.toList());
+        }
     }
 }

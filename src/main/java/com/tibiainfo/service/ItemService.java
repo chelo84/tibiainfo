@@ -29,17 +29,17 @@ public class ItemService {
                 .orElseThrow(() -> new NotFoundException("Item not found"));
     }
 
-    public PageSupportDTO<ItemDTO> getItems(ItemQueryDTO queryDto) {
-        PageRequest of = PageRequest.of(queryDto.getPage(), queryDto.getSize());
+    public PageSupportDTO<ItemDTO> getItems(ItemQueryDTO queryDTO) {
+        PageRequest of = PageRequest.of(queryDTO.getPage(), queryDTO.getSize());
 
         ItemSpecification specification = ItemSpecification.builder()
-                .itemQueryDto(queryDto)
+                .itemQueryDto(queryDTO)
                 .build();
 
         Page<Item> items = itemRepository.findAll(specification, of);
 
         return new PageSupportDTO<>(
-                items.map(ItemDTO::new)
+                items.map(item -> new ItemDTO(item, queryDTO.isExtended()))
         );
     }
 

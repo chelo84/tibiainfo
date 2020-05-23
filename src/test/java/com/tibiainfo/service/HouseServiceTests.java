@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -27,15 +28,14 @@ public class HouseServiceTests {
     private final String HOUSE_STREET = "Temple Street";
 
     private final HouseQueryDTO.HouseQueryDTOBuilder<?, ?> QUERY_DTO_BUILDER;
+    @Autowired
+    private HouseService houseService;
 
     {
         QUERY_DTO_BUILDER = HouseQueryDTO.builder()
                 .page(0)
                 .size(10);
     }
-
-    @Autowired
-    private HouseService houseService;
 
     @Test
     public void testGetHouses() {
@@ -104,7 +104,7 @@ public class HouseServiceTests {
     @Test
     public void testGetHousesFromStreet() {
         PageSupportDTO<HouseDTO> houses = houseService.getHouses(
-                QUERY_DTO_BUILDER.street(Optional.of(HOUSE_STREET)).build()
+                QUERY_DTO_BUILDER.street(Optional.of(HOUSE_STREET)).extended(true).build()
         );
 
         assertNotNull(houses);
@@ -128,6 +128,40 @@ public class HouseServiceTests {
     @Test(expected = NotFoundException.class)
     public void testGetHouseThatDoesNotExist() throws NotFoundException {
         houseService.getHouseById(NON_EXISTING_HOUSE);
+    }
+
+    @Test
+    public void testGetItemsWithNonExtendedJson() {
+        PageSupportDTO<HouseDTO> items = houseService.getHouses(
+                QUERY_DTO_BUILDER.build()
+        );
+
+        assertNotNull(items);
+        assertNotNull(items.getContent());
+        assertFalse(items.isEmpty());
+        assertTrue(
+                items.getContent()
+                        .stream()
+                        .map(HouseDTO::getStreet)
+                        .allMatch(Objects::isNull)
+        );
+    }
+
+    @Test
+    public void testGetItemsWithExtendedJson() {
+        PageSupportDTO<HouseDTO> items = houseService.getHouses(
+                QUERY_DTO_BUILDER.extended(true).build()
+        );
+
+        assertNotNull(items);
+        assertNotNull(items.getContent());
+        assertFalse(items.isEmpty());
+        assertTrue(
+                items.getContent()
+                        .stream()
+                        .map(HouseDTO::getStreet)
+                        .anyMatch(Objects::nonNull)
+        );
     }
 
 }

@@ -24,17 +24,17 @@ public class HouseService {
                 .orElseThrow(() -> new NotFoundException("House not found"));
     }
 
-    public PageSupportDTO<HouseDTO> getHouses(HouseQueryDTO queryDto) {
-        PageRequest of = PageRequest.of(queryDto.getPage(), queryDto.getSize());
+    public PageSupportDTO<HouseDTO> getHouses(HouseQueryDTO queryDTO) {
+        PageRequest of = PageRequest.of(queryDTO.getPage(), queryDTO.getSize());
 
         HouseSpecification specification = HouseSpecification.builder()
-                .queryDTO(queryDto)
+                .queryDTO(queryDTO)
                 .build();
 
         Page<House> houses = houseRepository.findAll(specification, of);
 
         return new PageSupportDTO<>(
-                houses.map(HouseDTO::new)
+                houses.map(house -> new HouseDTO(house, queryDTO.isExtended()))
         );
 
     }

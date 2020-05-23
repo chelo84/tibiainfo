@@ -1,6 +1,5 @@
 package com.tibiainfo.model.dto.creature;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tibiainfo.model.entity.creature.Creature;
 import com.tibiainfo.model.entity.creature.CreatureSound;
 import lombok.Data;
@@ -9,7 +8,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CreatureDTO {
 
     Long id;
@@ -89,49 +87,56 @@ public class CreatureDTO {
     List<CreatureDropDTO> drops;
 
     public CreatureDTO(Creature creature) {
+        this(creature, true);
+    }
+
+    public CreatureDTO(Creature creature, boolean extended) {
         this.id = creature.getId();
         this.title = creature.getTitle();
-        this.name = creature.getName();
-        this.plural = creature.getPlural();
-        this.article = creature.getArticle();
         this.hitpoints = creature.getHitpoints();
-        this.experience = creature.getExperience();
-        this.armor = creature.getArmor();
-        this.speed = creature.getSpeed();
-        this.creatureClass = creature.getCreatureClass();
-        this.type = creature.getType();
-        this.typeSecondary = creature.getTypeSecondary();
-        this.bestiaryClass = creature.getBestiaryClass();
-        this.bestiaryLevel = creature.getBestiaryLevel();
-        this.bestiaryOccurrence = creature.getBestiaryOccurrence();
-        this.maxDamage = creature.getMaxDamage();
-        this.summonCost = creature.getSummonCost();
-        this.illusionable = creature.getIllusionable();
-        this.pushable = creature.getPushable();
-        this.pushObjects = creature.getPushObjects();
-        this.paralysable = creature.getParalysable();
-        this.seesInvisible = creature.getSeesInvisible();
-        this.boss = creature.getBoss();
-        this.modifierPhysical = creature.getModifierPhysical();
-        this.modifierEarth = creature.getModifierEarth();
-        this.modifierFire = creature.getModifierFire();
-        this.modifierIce = creature.getModifierIce();
-        this.modifierEnergy = creature.getModifierEnergy();
-        this.modifierHoly = creature.getModifierHoly();
-        this.modifierDrown = creature.getModifierDrown();
-        this.modifierHpDrain = creature.getModifierHpDrain();
-        this.abilities = creature.getAbilities();
-        this.walksThrough = creature.getWalksThrough();
-        this.walksAround = creature.getWalksAround();
-        this.version = creature.getVersion();
-        this.timestamp = creature.getTimestamp();
-        this.sounds = creature.getSounds()
-                .stream()
-                .map(CreatureSound::getContent)
-                .collect(Collectors.toList());
-        this.drops = creature.getDrops()
-                .stream()
-                .map(CreatureDropDTO::new)
-                .collect(Collectors.toList());
+
+        if (extended) {
+            this.name = creature.getName();
+            this.plural = creature.getPlural();
+            this.article = creature.getArticle();
+            this.experience = creature.getExperience();
+            this.armor = creature.getArmor();
+            this.speed = creature.getSpeed();
+            this.creatureClass = creature.getCreatureClass();
+            this.type = creature.getType();
+            this.typeSecondary = creature.getTypeSecondary();
+            this.bestiaryClass = creature.getBestiaryClass();
+            this.bestiaryLevel = creature.getBestiaryLevel();
+            this.bestiaryOccurrence = creature.getBestiaryOccurrence();
+            this.maxDamage = creature.getMaxDamage();
+            this.summonCost = creature.getSummonCost();
+            this.illusionable = creature.getIllusionable();
+            this.pushable = creature.getPushable();
+            this.pushObjects = creature.getPushObjects();
+            this.paralysable = creature.getParalysable();
+            this.seesInvisible = creature.getSeesInvisible();
+            this.boss = creature.getBoss();
+            this.modifierPhysical = creature.getModifierPhysical();
+            this.modifierEarth = creature.getModifierEarth();
+            this.modifierFire = creature.getModifierFire();
+            this.modifierIce = creature.getModifierIce();
+            this.modifierEnergy = creature.getModifierEnergy();
+            this.modifierHoly = creature.getModifierHoly();
+            this.modifierDrown = creature.getModifierDrown();
+            this.modifierHpDrain = creature.getModifierHpDrain();
+            this.abilities = creature.getAbilities();
+            this.walksThrough = creature.getWalksThrough();
+            this.walksAround = creature.getWalksAround();
+            this.version = creature.getVersion();
+            this.timestamp = creature.getTimestamp();
+            this.sounds = creature.getSounds()
+                    .stream()
+                    .map(CreatureSound::getContent)
+                    .collect(Collectors.toList());
+            this.drops = creature.getDrops()
+                    .stream()
+                    .map(CreatureDropDTO::new)
+                    .collect(Collectors.toList());
+        }
     }
 }

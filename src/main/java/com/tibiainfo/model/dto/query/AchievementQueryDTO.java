@@ -18,4 +18,5 @@ public class AchievementQueryDTO extends QueryDTO {
     @Builder.Default
     @ApiParam(example = "Annihilator")
     Optional<String> name = Optional.empty();
+
 }
