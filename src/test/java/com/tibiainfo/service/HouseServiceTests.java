@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class HouseServiceTest {
+public class HouseServiceTests {
 
     private final Long EXISTING_HOUSE = 7356L;
     private final Long NON_EXISTING_HOUSE = -1L;

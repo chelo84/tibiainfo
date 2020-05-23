@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class CreatureServiceTest {
+public class CreatureServiceTests {
 
     private final Long EXISTING_CREATURE = 1150L;
     private final Long NON_EXISTING_CREATURE = -1L;

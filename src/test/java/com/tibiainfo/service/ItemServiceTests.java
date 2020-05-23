@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class ItemServiceTest {
+public class ItemServiceTests {
 
     private final Long EXISTING_ITEM = 2303L;
     private final Long NON_EXISTING_ITEM = -1L;
@@ -92,4 +92,12 @@ public class ItemServiceTest {
         itemService.getImage(NON_EXISTING_ITEM);
     }
 
+    @Test
+    public void testGetItemByNameAndType() {
+        itemService.getItems(
+                ITEM_QUERY_DTO_BUILDER.type(Optional.of(BOOTS_TYPE))
+                        .name(Optional.of("Boots of Hste"))
+                        .build()
+        );
+    }
 }
