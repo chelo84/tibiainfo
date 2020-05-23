@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Objects;
 import java.util.Optional;
 
+import static java.util.Objects.nonNull;
 import static org.junit.Assert.*;
 
 @SpringBootTest
@@ -58,7 +59,7 @@ public class ImbuementServiceTest {
                 .build();
 
         PageSupportDTO<ImbuementDTO> imbuements = imbuementService.getImbuements(
-                IMBUEMENT_QUERY_DTO_BUILDER.name(Optional.of(IMBUEMENT_NAME)).build()
+                IMBUEMENT_QUERY_DTO_BUILDER.name(Optional.of(IMBUEMENT_NAME)).extended(true).build()
         );
 
         assertNotNull(imbuements);
@@ -67,7 +68,7 @@ public class ImbuementServiceTest {
         assertTrue(
                 imbuements.getContent()
                         .stream()
-                        .allMatch(imbuement -> imbuement.getName().equalsIgnoreCase(IMBUEMENT_NAME))
+                        .allMatch(imbuement -> nonNull(imbuement.getName()) && imbuement.getName().equalsIgnoreCase(IMBUEMENT_NAME))
         );
     }
 

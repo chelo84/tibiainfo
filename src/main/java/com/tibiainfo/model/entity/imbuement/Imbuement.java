@@ -3,6 +3,7 @@ package com.tibiainfo.model.entity.imbuement;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,6 +29,7 @@ public class Imbuement {
     Integer timestamp;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "imbuementId")
-    List<ImbuementMaterial> imbuements;
+    List<ImbuementMaterial> imbuements = new ArrayList<>();
+    ;
 
 }

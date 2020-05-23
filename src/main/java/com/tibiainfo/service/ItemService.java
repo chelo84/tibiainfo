@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -23,12 +24,14 @@ public class ItemService {
     @Autowired
     ItemRepository itemRepository;
 
+    @Transactional(readOnly = true)
     public ItemDTO getItemById(Long id) throws NotFoundException {
         return itemRepository.findById(id)
                 .map(ItemDTO::new)
                 .orElseThrow(() -> new NotFoundException("Item not found"));
     }
 
+    @Transactional(readOnly = true)
     public PageSupportDTO<ItemDTO> getItems(ItemQueryDTO queryDTO) {
         PageRequest of = PageRequest.of(queryDTO.getPage(), queryDTO.getSize());
 
@@ -43,6 +46,7 @@ public class ItemService {
         );
     }
 
+    @Transactional(readOnly = true)
     public byte[] getImage(Long id) throws NotFoundException {
         var item = this.getItemById(id);
 
