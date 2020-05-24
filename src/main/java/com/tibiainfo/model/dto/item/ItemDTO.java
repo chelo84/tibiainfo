@@ -1,6 +1,7 @@
 package com.tibiainfo.model.dto.item;
 
 import com.tibiainfo.model.entity.item.Item;
+import com.tibiainfo.model.entity.item.ItemSound;
 import lombok.Data;
 
 import java.util.List;
@@ -51,6 +52,8 @@ public class ItemDTO {
 
     List<ItemAttributeDTO> attributes;
 
+    List<String> sounds;
+
     public ItemDTO(Item item) {
         this(item, true);
     }
@@ -81,6 +84,10 @@ public class ItemDTO {
             this.attributes = item.getAttributes()
                     .stream()
                     .map(ItemAttributeDTO::new)
+                    .collect(Collectors.toList());
+            this.sounds = item.getSounds()
+                    .stream()
+                    .map(ItemSound::getContent)
                     .collect(Collectors.toList());
         }
     }

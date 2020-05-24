@@ -23,6 +23,7 @@ public class ItemServiceTests {
 
     private final Long EXISTING_ITEM = 2303L;
     private final Long NON_EXISTING_ITEM = -1L;
+    private final Long ITEM_WITH_SOUND = 2884L;
 
     private final String BOOTS_TYPE = "Boots";
 
@@ -138,6 +139,15 @@ public class ItemServiceTests {
     @Test
     public void testItemAttributes() throws NotFoundException {
         ItemDTO fetchedItem = itemService.getItemById(EXISTING_ITEM);
+
+        assertNotNull(fetchedItem);
+        assertNotNull(fetchedItem.getAttributes());
+        assertFalse(fetchedItem.getAttributes().isEmpty());
+    }
+
+    @Test
+    public void testItemSounds() throws NotFoundException {
+        ItemDTO fetchedItem = itemService.getItemById(ITEM_WITH_SOUND);
 
         assertNotNull(fetchedItem);
         assertNotNull(fetchedItem.getAttributes());
