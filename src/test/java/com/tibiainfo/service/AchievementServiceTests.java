@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -78,6 +79,40 @@ public class AchievementServiceTests {
     @Test(expected = NotFoundException.class)
     public void testGetAchievementThatDoesExist() throws NotFoundException {
         achievementService.getAchievementById(NON_EXISTING_ACHIEVEMENT);
+    }
+
+    @Test
+    public void testGetAchievementWithNonExtendedJson() {
+        PageSupportDTO<AchievementDTO> achievements = achievementService.getAchievements(
+                ACHIEVEMENT_QUERY_DTO_BUILDER.build()
+        );
+
+        assertNotNull(achievements);
+        assertNotNull(achievements.getContent());
+        assertFalse(achievements.isEmpty());
+        assertTrue(
+                achievements.getContent()
+                        .stream()
+                        .map(AchievementDTO::getPremium)
+                        .allMatch(Objects::isNull)
+        );
+    }
+
+    @Test
+    public void testGetAchievementWithExtendedJson() {
+        PageSupportDTO<AchievementDTO> achievements = achievementService.getAchievements(
+                ACHIEVEMENT_QUERY_DTO_BUILDER.extended(true).build()
+        );
+
+        assertNotNull(achievements);
+        assertNotNull(achievements.getContent());
+        assertFalse(achievements.isEmpty());
+        assertTrue(
+                achievements.getContent()
+                        .stream()
+                        .map(AchievementDTO::getPremium)
+                        .anyMatch(Objects::nonNull)
+        );
     }
 
 
