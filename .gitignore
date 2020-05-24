@@ -236,6 +236,7 @@ nbactions.xml
 
 */src/main/resources/application-local.properties
 
-/src/main/resources/tibiainfo.db
+/tibiainfo.db
 /src/test/resources/tibiainfo.db
-
+/images/
+/images.zip
