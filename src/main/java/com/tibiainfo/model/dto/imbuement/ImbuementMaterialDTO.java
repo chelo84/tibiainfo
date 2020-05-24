@@ -16,6 +16,5 @@ public class ImbuementMaterialDTO {
         this.item = new ItemDTO(imbuementMaterial.getItem());
         this.amount = imbuementMaterial.getAmount();
 
-
     }
 }

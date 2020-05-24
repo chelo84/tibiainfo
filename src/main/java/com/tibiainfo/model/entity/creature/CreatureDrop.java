@@ -1,15 +1,15 @@
 package com.tibiainfo.model.entity.creature;
 
 import com.tibiainfo.model.entity.item.Item;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Getter
 @Setter
-@IdClass(CreatureDropId.class)
+@IdClass(CreatureDrop.CreatureDropId.class)
 public class CreatureDrop {
 
     @Id
@@ -25,5 +25,16 @@ public class CreatureDrop {
     Integer min;
 
     Integer max;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class CreatureDropId implements Serializable {
+
+        Long creatureId;
+
+        Long item;
+
+    }
 
 }
