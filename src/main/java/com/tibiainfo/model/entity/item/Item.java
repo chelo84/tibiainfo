@@ -55,4 +55,7 @@ public class Item {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemId")
     List<ItemAttribute> attributes = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "itemId")
+    List<ItemSound> sounds = new ArrayList<>();
+
 }
