@@ -30,6 +30,5 @@ public class Imbuement {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "imbuementId")
     List<ImbuementMaterial> imbuements = new ArrayList<>();
-    ;
 
 }

@@ -1,7 +1,7 @@
 package com.tibiainfo.model.repository;
 
 import com.tibiainfo.model.entity.creature.CreatureDrop;
-import com.tibiainfo.model.entity.creature.CreatureDropId;
+import com.tibiainfo.model.entity.creature.CreatureDrop.CreatureDropId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
