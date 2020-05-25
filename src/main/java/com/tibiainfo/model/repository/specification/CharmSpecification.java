@@ -24,6 +24,8 @@ public class CharmSpecification implements Specification<Charm> {
         Predicate predicate = builder.and();
         if (charmQueryDTO.getName().isPresent()) {
             predicate = getNamePredicate(root, builder, predicate);
+        } else if (charmQueryDTO.getType().isPresent()) {
+            predicate = getTypePredicate(root, builder, predicate);
         }
         return predicate;
     }
@@ -34,6 +36,13 @@ public class CharmSpecification implements Specification<Charm> {
                 charmQueryDTO.getName().get().toUpperCase());
         predicate = builder.and(predicate, charmEquals);
         return predicate;
+    }
 
+    private Predicate getTypePredicate(Root<Charm> root, CriteriaBuilder builder, Predicate predicate) {
+        Predicate charmEquals = builder.equal(
+                builder.upper(root.get("type")),
+                charmQueryDTO.getType().get().toUpperCase());
+        predicate = builder.and(predicate, charmEquals);
+        return predicate;
     }
 }

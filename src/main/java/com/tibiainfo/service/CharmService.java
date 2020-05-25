@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -23,12 +24,14 @@ public class CharmService {
     @Autowired
     CharmRepository charmRepository;
 
+    @Transactional(readOnly = true)
     public CharmDTO getCharmById(Long id) throws NotFoundException {
         return charmRepository.findById(id)
                 .map(CharmDTO::new)
                 .orElseThrow(() -> new NotFoundException("Charm not found"));
     }
 
+    @Transactional(readOnly = true)
     public PageSupportDTO<CharmDTO> getCharms(CharmQueryDTO queryDTO) {
         PageRequest of = PageRequest.of(queryDTO.getPage(), queryDTO.getSize());
 
@@ -43,6 +46,7 @@ public class CharmService {
         );
     }
 
+    @Transactional(readOnly = true)
     public byte[] getImage(Long id) throws NotFoundException {
         var charm = this.getCharmById(id);
 
