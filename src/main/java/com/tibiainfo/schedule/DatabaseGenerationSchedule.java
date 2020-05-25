@@ -26,6 +26,8 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -62,23 +64,23 @@ public class DatabaseGenerationSchedule {
 
     @Scheduled(fixedRateString = "${database.update.rate}", initialDelay = 2500)
     public void process() {
-        if (activeProfile.equalsIgnoreCase("dev")) {
+        if (!activeProfile.equalsIgnoreCase("dev")) {
             try {
                 log.info("--------------------- Generating database ---------------------");
-//                this.downloadTibiaImages();
-//
-//                String dateStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMddyyyyHHmm"));
-//                final Path output = Path.of(String.format("database-log-%s.txt", dateStr));
+                this.downloadTibiaImages();
+
+                String dateStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMddyyyyHHmm"));
+                final Path output = Path.of(String.format("database-log-%s.txt", dateStr));
 
                 if (!isPipInstalled()) {
                     this.installPip();
                 }
 
-//                this.installTibiaWikiSqlLib(output);
-//
-//                final String dbFilename = String.format(NEW_DB_NAME, dateStr);
-//                this.generateDatabase(output, dbFilename);
-//
+                this.installTibiaWikiSqlLib(output);
+
+                final String dbFilename = String.format(NEW_DB_NAME, dateStr);
+                this.generateDatabase(output, dbFilename);
+
                 log.info("---------------- Finished generating database ----------------");
 
             } catch (Exception ex) {
