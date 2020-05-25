@@ -10,6 +10,7 @@ import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -32,6 +33,9 @@ import static java.util.Objects.nonNull;
 
 @Slf4j
 @Component
+@ConditionalOnProperty(
+        value = "scheduling.enable", havingValue = "true", matchIfMissing = true
+)
 @EnableScheduling
 public class DatabaseGenerationSchedule {
 
