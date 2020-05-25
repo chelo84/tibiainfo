@@ -5,9 +5,11 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import com.tibiainfo.config.RoutingDataSource;
+import com.tibiainfo.exception.PipInstallationException;
 import lombok.extern.slf4j.Slf4j;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
+import org.apache.commons.lang3.SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -70,6 +72,10 @@ public class DatabaseGenerationSchedule {
                 String dateStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMddyyyyHHmm"));
                 final Path output = Path.of(String.format("database-log-%s.txt", dateStr));
 
+                if (!isPipInstalled()) {
+                    this.installPip();
+                }
+
                 this.installTibiaWikiSqlLib(output);
 
                 final String dbFilename = String.format(NEW_DB_NAME, dateStr);
@@ -83,6 +89,75 @@ public class DatabaseGenerationSchedule {
                 log.info("Something gone wrong while generating database");
             }
         }
+    }
+
+    private boolean isPipInstalled() {
+        try {
+            return new ProcessBuilder("pip")
+                    .redirectErrorStream(true)
+                    .redirectOutput(Redirect.INHERIT)
+                    .redirectError(Redirect.INHERIT)
+                    .start()
+                    .onExit()
+                    .thenApply(p -> p.exitValue() == 0)
+                    .get();
+        } catch (IOException ex) {
+            return false;
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+
+            return false;
+        }
+    }
+
+    private void installPip() throws Exception {
+        log.info("Installing pip...");
+
+        boolean installedPip = false;
+        try {
+            if (SystemUtils.IS_OS_WINDOWS || SystemUtils.IS_OS_LINUX) {
+                installedPip = this.installPipLinuxAndWindows();
+            }
+        } catch (Exception ex) {
+            log.error(ex.getMessage(), ex);
+        }
+
+        if (!installedPip) {
+            throw new PipInstallationException("Could not download Pip");
+        }
+    }
+
+    private Boolean installPipLinuxAndWindows() throws IOException, ExecutionException, InterruptedException {
+        final String pipFilename = "get-pip.py";
+        boolean success = this.downloadPipFile(pipFilename);
+
+        if (success) success = this.installPipFromFile(pipFilename);
+
+        return success;
+    }
+
+    private boolean installPipFromFile(String pipFilename) throws IOException, ExecutionException, InterruptedException {
+        return new ProcessBuilder("python", pipFilename)
+                .redirectErrorStream(true)
+                .redirectError(Redirect.INHERIT)
+                .redirectOutput(Redirect.INHERIT)
+                .start()
+                .onExit()
+                .thenApply(p -> p.exitValue() == 0)
+                .get();
+    }
+
+    private boolean downloadPipFile(String pipFilename) throws IOException, ExecutionException, InterruptedException {
+        final String pipFileUrl = "https://bootstrap.pypa.io/get-pip.py";
+
+        return new ProcessBuilder("curl", pipFileUrl, "-o", pipFilename)
+                .redirectErrorStream(true)
+                .redirectError(Redirect.INHERIT)
+                .redirectOutput(Redirect.INHERIT)
+                .start()
+                .onExit()
+                .thenApply(p -> p.exitValue() == 0)
+                .get();
     }
 
     private void downloadTibiaImages() throws ZipException {
