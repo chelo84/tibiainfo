@@ -1,4 +1,4 @@
-package com.tibiainfo.schedule;
+package com.tibiainfo.scheduler;
 
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
@@ -37,7 +37,7 @@ import static java.util.Objects.nonNull;
         value = "scheduling.enable", havingValue = "true", matchIfMissing = true
 )
 @EnableScheduling
-public class DatabaseGenerationSchedule {
+public class DatabaseGenerationScheduler {
 
     private final List<String> dbColumnsWithImages = List.of("item", "charm", "creature", "imbuement", "item", "map", "mount", "npc", "outfit_image", "spell");
 
@@ -67,13 +67,11 @@ public class DatabaseGenerationSchedule {
                 log.info("--------------------- Generating database ---------------------");
                 this.downloadTibiaImages();
 
+                this.installTibiaWikiSqlLib();
+
                 String dateStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMddyyyyHHmm"));
-                final Path output = Path.of(String.format("database-log-%s.txt", dateStr));
-
-                this.installTibiaWikiSqlLib(output);
-
                 final String dbFilename = String.format(NEW_DB_NAME, dateStr);
-                this.generateDatabase(output, dbFilename);
+                this.generateDatabase(dbFilename);
 
                 log.info("---------------- Finished generating database ----------------");
 
@@ -110,20 +108,20 @@ public class DatabaseGenerationSchedule {
         }
     }
 
-    private void installTibiaWikiSqlLib(final Path output) throws IOException, ExecutionException, InterruptedException {
+    private void installTibiaWikiSqlLib() throws IOException, ExecutionException, InterruptedException {
         log.info("Installing TibiaWikiSQL...");
 
         new ProcessBuilder("pip", "install", "tibiawikisql")
                 .redirectErrorStream(true)
-                .redirectOutput(Redirect.to(output.toFile()))
-                .redirectError(Redirect.to(output.toFile()))
+                .redirectOutput(Redirect.INHERIT)
+                .redirectError(Redirect.INHERIT)
                 .start()
                 .onExit()
                 .thenApply(p -> p.exitValue() == 0)
                 .get();
     }
 
-    private void generateDatabase(final Path output, final String dbFilename) throws IOException, ExecutionException, InterruptedException {
+    private void generateDatabase(final String dbFilename) throws IOException, ExecutionException, InterruptedException {
         log.info("Generating database...");
 
         new ProcessBuilder("tibiawikisql", "generate", "-db", dbFilename)
@@ -163,7 +161,6 @@ public class DatabaseGenerationSchedule {
 
         if (abstractRoutingDataSource instanceof RoutingDataSource) {
             final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//            dataSource.setDriverClassName(driverClassName);
             dataSource.setUrl(newDbUrl);
 
             RoutingDataSource rds = (RoutingDataSource) abstractRoutingDataSource;
