@@ -45,7 +45,7 @@ public class DatabaseGenerationSchedule {
 
     private final String IMAGES_ZIP = "images.zip",
             IMAGES_FOLDER = "images/",
-            NEW_DB_NAME = "tibiainfo-%s.db",
+            NEW_DB_NAME = "/app/tibiainfo-%s.db",
             NEW_DB_CONNECTION_URL = "jdbc:sqlite:%s";
 
     @Value("${google.cloud.project.id}")
