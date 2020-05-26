@@ -165,7 +165,7 @@ public class DatabaseGenerationSchedule {
 
         if (abstractRoutingDataSource instanceof RoutingDataSource) {
             final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-            dataSource.setDriverClassName(driverClassName);
+//            dataSource.setDriverClassName(driverClassName);
             dataSource.setUrl(newDbUrl);
 
             RoutingDataSource rds = (RoutingDataSource) abstractRoutingDataSource;
