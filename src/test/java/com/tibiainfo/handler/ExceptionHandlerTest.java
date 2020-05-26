@@ -43,7 +43,7 @@ public class ExceptionHandlerTest {
         HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
         Mockito.when(request.getRequestURI()).thenReturn("/not-found");
 
-        Exception exception = new NotFoundException("Not Found Exception");
+        Exception exception = new NotFoundException(NotFoundException.class);
 
         HttpStatus expectedHttpStatus = HttpStatus.NOT_FOUND;
 

@@ -28,7 +28,7 @@ public class SpellService {
     public SpellDTO getSpellById(Long id) throws NotFoundException {
         return spellRepository.findById(id)
                 .map(SpellDTO::new)
-                .orElseThrow(() -> new NotFoundException("Spell Not Found"));
+                .orElseThrow(() -> new NotFoundException(Spell.class));
     }
 
     @Transactional(readOnly = true)

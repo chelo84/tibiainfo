@@ -27,7 +27,7 @@ public class MapService {
 
         return mapRepository.findById(z)
                 .map(MapDTO::new)
-                .orElseThrow(() -> new NotFoundException("Map not found"));
+                .orElseThrow(() -> new NotFoundException(Map.class));
     }
 
     public PageSupportDTO<MapDTO> getMaps(MapQueryDTO queryDTO) {

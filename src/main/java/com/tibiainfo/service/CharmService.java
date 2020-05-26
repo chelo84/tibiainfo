@@ -28,7 +28,7 @@ public class CharmService {
     public CharmDTO getCharmById(Long id) throws NotFoundException {
         return charmRepository.findById(id)
                 .map(CharmDTO::new)
-                .orElseThrow(() -> new NotFoundException("Charm not found"));
+                .orElseThrow(() -> new NotFoundException(Charm.class));
     }
 
     @Transactional(readOnly = true)

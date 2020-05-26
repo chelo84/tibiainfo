@@ -1,24 +1,22 @@
 package com.tibiainfo.controller;
 
+import com.tibiainfo.config.CaseInsensitiveEnumEditor;
 import com.tibiainfo.exception.NotFoundException;
 import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.outfit.OutfitDTO;
 import com.tibiainfo.model.dto.query.OutfitQueryDTO;
+import com.tibiainfo.model.enumeration.OutfitSex;
 import com.tibiainfo.service.OutfitService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.SwaggerDefinition;
-import io.swagger.annotations.Tag;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 
 @RestController
 @RequestMapping("/outfits")
@@ -39,18 +37,25 @@ public class OutfitController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Returns a specific outfit")
-    public OutfitDTO getOutfitById(@PathVariable Long id) throws NotFoundException {
+    public OutfitDTO getOutfitById(@PathVariable @ApiParam(example = "80934") Long id) throws NotFoundException {
         return outfitService.getOutfitById(id);
     }
 
-    @GetMapping("/{id}/image")
+    @GetMapping("/{id}/image/{addon}")
     @ApiOperation(value = "Returns the outfit's image")
-    public ResponseEntity<?> getImage(@PathVariable Long id) throws NotFoundException {
+    public ResponseEntity<?> getImage(@PathVariable @ApiParam(required = true, example = "80934") @Valid Long id,
+                                      @PathVariable @ApiParam(required = true, example = "1", type = "integer", allowableValues = "0,1,2,3") Integer addon,
+                                      @RequestParam(value = "sex") @ApiParam(required = true, example = "male", allowableValues = "male, female") @Pattern(regexp = "(male)|(female)", flags = Pattern.Flag.CASE_INSENSITIVE, message = "Sex must be male or female") @Valid OutfitSex sex) throws NotFoundException {
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION)
                 .contentType(MediaType.IMAGE_GIF)
-                .body(outfitService.getImage(id));
+                .body(outfitService.getImage(id, sex, addon));
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(OutfitSex.class, new CaseInsensitiveEnumEditor(OutfitSex.class));
     }
 
 }

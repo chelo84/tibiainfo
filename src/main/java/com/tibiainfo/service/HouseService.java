@@ -21,7 +21,7 @@ public class HouseService {
     public HouseDTO getHouseById(Long id) throws NotFoundException {
         return houseRepository.findById(id)
                 .map(HouseDTO::new)
-                .orElseThrow(() -> new NotFoundException("House not found"));
+                .orElseThrow(() -> new NotFoundException(House.class));
     }
 
     public PageSupportDTO<HouseDTO> getHouses(HouseQueryDTO queryDTO) {
