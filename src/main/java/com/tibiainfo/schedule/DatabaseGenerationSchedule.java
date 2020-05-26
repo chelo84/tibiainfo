@@ -72,9 +72,9 @@ public class DatabaseGenerationSchedule {
                 String dateStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMddyyyyHHmm"));
                 final Path output = Path.of(String.format("database-log-%s.txt", dateStr));
 
-                if (!isPipInstalled()) {
-                    this.installPip();
-                }
+//                if (!isPipInstalled()) {
+//                    this.installPip();
+//                }
 
                 this.installTibiaWikiSqlLib(output);
 
