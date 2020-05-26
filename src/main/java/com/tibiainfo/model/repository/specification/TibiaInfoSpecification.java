@@ -104,7 +104,7 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
         if (optional.isPresent()) {
             Predicate equalPredicate = builder.equal(
                     builder.upper(root.get(field)),
-                    optional.get().toUpperCase()
+                    optional.get().trim().toUpperCase()
             );
 
             addInstruction(equalPredicate);
@@ -131,7 +131,7 @@ public abstract class TibiaInfoSpecification<T> implements Specification<T> {
         if (optional.isPresent()) {
             Predicate likePredicate = builder.like(
                     builder.upper(root.get(field)),
-                    optional.get().toUpperCase()
+                    String.format("%%%s%%", optional.get().trim().toUpperCase())
             );
 
             addInstruction(likePredicate);
