@@ -66,20 +66,18 @@ public class DatabaseGenerationSchedule {
     public void process() {
         if (!activeProfile.equalsIgnoreCase("dev")) {
             try {
-//                log.info("--------------------- Generating database ---------------------");
-//                this.downloadTibiaImages();
-//
-//                String dateStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMddyyyyHHmm"));
-//                final Path output = Path.of(String.format("database-log-%s.txt", dateStr));
-//
-//                this.installTibiaWikiSqlLib(output);
-//
-//                final String dbFilename = String.format(NEW_DB_NAME, dateStr);
-//                this.generateDatabase(output, dbFilename);
-//
-//                log.info("---------------- Finished generating database ----------------");
-//
-                changeCurrentDatabase("tibiainfo2.db", "jdbc:sqlite:tibiainfo2.db");
+                log.info("--------------------- Generating database ---------------------");
+                this.downloadTibiaImages();
+
+                String dateStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMddyyyyHHmm"));
+                final Path output = Path.of(String.format("database-log-%s.txt", dateStr));
+
+                this.installTibiaWikiSqlLib(output);
+
+                final String dbFilename = String.format(NEW_DB_NAME, dateStr);
+                this.generateDatabase(output, dbFilename);
+
+                log.info("---------------- Finished generating database ----------------");
 
             } catch (Exception ex) {
                 log.error(ex.getMessage(), ex);
