@@ -1,4 +1,4 @@
-package com.tibiainfo.model.repository.specification;
+package com.tibiainfo.model.repository;
 
 import com.tibiainfo.model.entity.mount.Mount;
 import org.springframework.data.jpa.repository.JpaRepository;
