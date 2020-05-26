@@ -23,7 +23,7 @@ public class RashidService {
     public RashidDTO getRashidByDay(Long day) throws NotFoundException {
         return rashidRepository.findById(day)
                 .map(RashidDTO::new)
-                .orElseThrow(() -> new NotFoundException("Rashid day not found"));
+                .orElseThrow(() -> new NotFoundException(Rashid.class));
     }
 
     @Transactional(readOnly = true)

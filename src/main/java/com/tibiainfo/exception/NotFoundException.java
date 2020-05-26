@@ -7,9 +7,11 @@ import com.tibiainfo.model.entity.house.House;
 import com.tibiainfo.model.entity.imbuement.Imbuement;
 import com.tibiainfo.model.entity.item.Item;
 import com.tibiainfo.model.entity.item.key.ItemKey;
+import com.tibiainfo.model.entity.mount.Mount;
 import com.tibiainfo.model.entity.outfit.Outfit;
 import com.tibiainfo.model.entity.outfit.OutfitImage;
 import com.tibiainfo.model.entity.quest.Quest;
+import com.tibiainfo.model.entity.rashid.Rashid;
 import com.tibiainfo.model.entity.spell.Spell;
 
 import java.util.Map;
@@ -30,7 +32,9 @@ public class NotFoundException extends Exception {
             entry(Creature.class, "Creature not found"),
             entry(House.class, "House not found"),
             entry(Quest.class, "Quest not found"),
-            entry(ItemKey.class, "Key not found")
+            entry(ItemKey.class, "Key not found"),
+            entry(Mount.class, "Mount not found"),
+            entry(Rashid.class, "Rashid day not found")
     );
 
     public NotFoundException(Class<?> clazz) {

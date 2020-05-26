@@ -28,7 +28,7 @@ public class MountService {
     public MountDTO getMountById(Long id) throws NotFoundException {
         return mountRepository.findById(id)
                 .map(MountDTO::new)
-                .orElseThrow(() -> new NotFoundException("Mount not found"));
+                .orElseThrow(() -> new NotFoundException(Mount.class));
     }
 
     @Transactional(readOnly = true)
