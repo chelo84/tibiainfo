@@ -130,8 +130,8 @@ public class DatabaseGenerationSchedule {
 
         new ProcessBuilder("tibiawikisql", "generate", "-db", dbFilename)
                 .redirectErrorStream(true)
-                .redirectOutput(Redirect.to(output.toFile()))
-                .redirectError(Redirect.to(output.toFile()))
+                .redirectOutput(Redirect.INHERIT)
+                .redirectError(Redirect.INHERIT)
                 .start()
                 .onExit()
                 .thenApply(p -> {
