@@ -1,15 +1,13 @@
-package com.tibiainfo.schedule;
+package com.tibiainfo.scheduler;
 
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import com.tibiainfo.config.RoutingDataSource;
-import com.tibiainfo.exception.PipInstallationException;
 import lombok.extern.slf4j.Slf4j;
 import net.lingala.zip4j.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
-import org.apache.commons.lang3.SystemUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -39,7 +37,7 @@ import static java.util.Objects.nonNull;
         value = "scheduling.enable", havingValue = "true", matchIfMissing = true
 )
 @EnableScheduling
-public class DatabaseGenerationSchedule {
+public class DatabaseGenerationScheduler {
 
     private final List<String> dbColumnsWithImages = List.of("item", "charm", "creature", "imbuement", "item", "map", "mount", "npc", "outfit_image", "spell");
 
@@ -165,7 +163,6 @@ public class DatabaseGenerationSchedule {
 
         if (abstractRoutingDataSource instanceof RoutingDataSource) {
             final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//            dataSource.setDriverClassName(driverClassName);
             dataSource.setUrl(newDbUrl);
 
             RoutingDataSource rds = (RoutingDataSource) abstractRoutingDataSource;
