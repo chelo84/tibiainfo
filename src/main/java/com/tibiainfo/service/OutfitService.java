@@ -71,6 +71,7 @@ public class OutfitService {
                 .orElseThrow(() -> new NotFoundException(OutfitImage.class));
     }
 
+    @Transactional(readOnly = true)
     public List<OutfitQuestDTO> getQuests(Long id) throws NotFoundException {
         var outfit = this.getOutfitById(id);
 
