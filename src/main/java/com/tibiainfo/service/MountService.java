@@ -5,7 +5,7 @@ import com.tibiainfo.model.dto.PageSupportDTO;
 import com.tibiainfo.model.dto.mount.MountDTO;
 import com.tibiainfo.model.dto.query.MountQueryDTO;
 import com.tibiainfo.model.entity.mount.Mount;
-import com.tibiainfo.model.repository.specification.MountRepository;
+import com.tibiainfo.model.repository.MountRepository;
 import com.tibiainfo.model.repository.specification.MountSpecification;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
