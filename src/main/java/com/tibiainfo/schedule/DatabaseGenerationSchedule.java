@@ -45,7 +45,7 @@ public class DatabaseGenerationSchedule {
 
     private final String IMAGES_ZIP = "images.zip",
             IMAGES_FOLDER = "images/",
-            NEW_DB_NAME = "/tmp/tibiainfo-%s.db",
+            NEW_DB_NAME = "tibiainfo2.db",
             NEW_DB_CONNECTION_URL = "jdbc:sqlite:%s";
 
     @Value("${google.cloud.project.id}")
@@ -74,7 +74,7 @@ public class DatabaseGenerationSchedule {
 
                 this.installTibiaWikiSqlLib(output);
 
-                final String dbFilename = String.format(NEW_DB_NAME, dateStr);
+                final String dbFilename = String.format(NEW_DB_NAME);
                 this.generateDatabase(output, dbFilename);
 
                 log.info("---------------- Finished generating database ----------------");
