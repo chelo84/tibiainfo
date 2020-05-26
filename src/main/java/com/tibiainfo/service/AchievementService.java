@@ -21,7 +21,7 @@ public class AchievementService {
     public AchievementDTO getAchievementById(Long id) throws NotFoundException {
         return achievementRepository.findById(id)
                 .map(AchievementDTO::new)
-                .orElseThrow(() -> new NotFoundException("Achievement not found"));
+                .orElseThrow(() -> new NotFoundException(Achievement.class));
     }
 
     public PageSupportDTO<AchievementDTO> getAchievements(AchievementQueryDTO queryDTO) {

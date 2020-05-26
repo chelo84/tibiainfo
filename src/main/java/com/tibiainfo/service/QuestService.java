@@ -23,7 +23,7 @@ public class QuestService {
     public QuestDTO getQuestById(Long id) throws NotFoundException {
         return questRepository.findById(id)
                 .map(QuestDTO::new)
-                .orElseThrow(() -> new NotFoundException("Quest not found"));
+                .orElseThrow(() -> new NotFoundException(Quest.class));
     }
 
     @Transactional(readOnly = true)

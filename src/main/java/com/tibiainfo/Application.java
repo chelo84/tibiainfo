@@ -1,6 +1,7 @@
 package com.tibiainfo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.springframework.boot.SpringApplication;
@@ -26,8 +27,8 @@ public class Application {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+        mapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
 
         return mapper;
     }
-
 }

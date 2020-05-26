@@ -32,7 +32,7 @@ public class CreatureService {
     public CreatureDTO getCreatureById(Long id) throws NotFoundException {
         return creatureRepository.findById(id)
                 .map(CreatureDTO::new)
-                .orElseThrow(() -> new NotFoundException("Creature not found"));
+                .orElseThrow(() -> new NotFoundException(Creature.class));
     }
 
     @Transactional(readOnly = true)

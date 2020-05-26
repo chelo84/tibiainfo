@@ -28,7 +28,7 @@ public class ImbuementService {
     public ImbuementDTO getImbuementById(Long id) throws NotFoundException {
         return imbuementRepository.findById(id)
                 .map(ImbuementDTO::new)
-                .orElseThrow(() -> new NotFoundException("Imbuement not found"));
+                .orElseThrow(() -> new NotFoundException(Imbuement.class));
     }
 
     @Transactional(readOnly = true)

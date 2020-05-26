@@ -23,7 +23,7 @@ public class ItemKeyService {
     public ItemKeyDTO getItemKeyById(Long id) throws NotFoundException {
         return itemKeyRepository.findById(id)
                 .map(ItemKeyDTO::new)
-                .orElseThrow(() -> new NotFoundException("Key not found"));
+                .orElseThrow(() -> new NotFoundException(ItemKey.class));
     }
 
     @Transactional(readOnly = true)

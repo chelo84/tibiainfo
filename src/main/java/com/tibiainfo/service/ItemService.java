@@ -28,7 +28,7 @@ public class ItemService {
     public ItemDTO getItemById(Long id) throws NotFoundException {
         return itemRepository.findById(id)
                 .map(ItemDTO::new)
-                .orElseThrow(() -> new NotFoundException("Item not found"));
+                .orElseThrow(() -> new NotFoundException(Item.class));
     }
 
     @Transactional(readOnly = true)
