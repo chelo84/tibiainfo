@@ -67,13 +67,11 @@ public class DatabaseGenerationScheduler {
                 log.info("--------------------- Generating database ---------------------");
                 this.downloadTibiaImages();
 
+                this.installTibiaWikiSqlLib();
+
                 String dateStr = LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMddyyyyHHmm"));
-                final Path output = Path.of(String.format("database-log-%s.txt", dateStr));
-
-                this.installTibiaWikiSqlLib(output);
-
                 final String dbFilename = String.format(NEW_DB_NAME, dateStr);
-                this.generateDatabase(output, dbFilename);
+                this.generateDatabase(dbFilename);
 
                 log.info("---------------- Finished generating database ----------------");
 
@@ -110,20 +108,20 @@ public class DatabaseGenerationScheduler {
         }
     }
 
-    private void installTibiaWikiSqlLib(final Path output) throws IOException, ExecutionException, InterruptedException {
+    private void installTibiaWikiSqlLib() throws IOException, ExecutionException, InterruptedException {
         log.info("Installing TibiaWikiSQL...");
 
         new ProcessBuilder("pip", "install", "tibiawikisql")
                 .redirectErrorStream(true)
-                .redirectOutput(Redirect.to(output.toFile()))
-                .redirectError(Redirect.to(output.toFile()))
+                .redirectOutput(Redirect.INHERIT)
+                .redirectError(Redirect.INHERIT)
                 .start()
                 .onExit()
                 .thenApply(p -> p.exitValue() == 0)
                 .get();
     }
 
-    private void generateDatabase(final Path output, final String dbFilename) throws IOException, ExecutionException, InterruptedException {
+    private void generateDatabase(final String dbFilename) throws IOException, ExecutionException, InterruptedException {
         log.info("Generating database...");
 
         new ProcessBuilder("tibiawikisql", "generate", "-db", dbFilename)
