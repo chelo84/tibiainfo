@@ -45,7 +45,7 @@ public class DatabaseGenerationSchedule {
 
     private final String IMAGES_ZIP = "images.zip",
             IMAGES_FOLDER = "images/",
-            NEW_DB_NAME = "tibiainfo2.db",
+            NEW_DB_NAME = "tibiainfo-%s.db",
             NEW_DB_CONNECTION_URL = "jdbc:sqlite:%s";
 
     @Value("${google.cloud.project.id}")
@@ -74,7 +74,7 @@ public class DatabaseGenerationSchedule {
 
                 this.installTibiaWikiSqlLib(output);
 
-                final String dbFilename = String.format(NEW_DB_NAME);
+                final String dbFilename = String.format(NEW_DB_NAME, dateStr);
                 this.generateDatabase(output, dbFilename);
 
                 log.info("---------------- Finished generating database ----------------");
@@ -156,6 +156,10 @@ public class DatabaseGenerationSchedule {
     private void changeCurrentDatabase(final String dbFilename, final String newDbUrl) throws SQLException {
         log.info("Changing current database to {}...", dbFilename);
         log.info(newDbUrl);
+
+        if (Path.of(dbFilename).toFile().exists()) {
+            log.info("file exists");
+        }
 
         String previousDbFilename = null;
 
