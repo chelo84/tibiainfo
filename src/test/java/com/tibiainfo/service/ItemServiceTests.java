@@ -22,7 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class ItemServiceTests {
 
     private final Long EXISTING_ITEM = 2303L;
+
     private final Long NON_EXISTING_ITEM = -1L;
+
     private final Long ITEM_WITH_SOUND = 2884L;
 
     private final String BOOTS_TYPE = "Boots";
