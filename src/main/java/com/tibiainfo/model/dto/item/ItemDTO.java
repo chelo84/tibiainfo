@@ -2,6 +2,7 @@ package com.tibiainfo.model.dto.item;
 
 import com.tibiainfo.model.entity.item.Item;
 import com.tibiainfo.model.entity.item.ItemSound;
+import com.tibiainfo.model.entity.npc.Npc;
 import lombok.Data;
 
 import java.util.List;
