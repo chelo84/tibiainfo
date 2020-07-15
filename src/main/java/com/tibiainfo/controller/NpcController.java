@@ -12,6 +12,9 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.SwaggerDefinition;
 import io.swagger.annotations.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +43,16 @@ public class NpcController {
     @ApiOperation(value = "Return a specific npc")
     public NpcDTO getAchievementById(@PathVariable Long id) throws NotFoundException {
         return npcService.getNpcById(id);
+    }
+
+    @GetMapping("/{id}/image")
+    @ApiOperation(value = "Returns the item's image")
+    public ResponseEntity<?> getImage(@PathVariable Long id) throws NotFoundException {
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION)
+                .contentType(MediaType.IMAGE_GIF)
+                .body(npcService.getImage(id));
     }
 
 
