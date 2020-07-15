@@ -1,14 +1,15 @@
 package com.tibiainfo.model.repository;
 
-import com.tibiainfo.model.entity.item.Item;
+import com.tibiainfo.model.entity.npc.Npc;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
-public interface ItemRepository extends JpaRepository<Item, Long>, JpaSpecificationExecutor<Item> {
+@Repository
+public interface NpcRepository extends JpaRepository<Npc, Long>, JpaSpecificationExecutor<Npc> {
 
-
-    @Query(value = "select image from item where article_id = :id", nativeQuery = true)
+    @Query(value = "select image from npc where article_id = :id", nativeQuery = true)
     String getImageById(@Param("id") Long id);
 }
